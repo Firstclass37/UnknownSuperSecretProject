@@ -1,0 +1,19 @@
+{
+    "name": "vilains",
+    "devDependencies": {
+        "file-loader": "3.0.1",
+        "ts-loader": "5.3.3",
+        "typescript": "3.3.4000",
+        "webpack": "4.29.6",
+        "webpack-cli": "3.3.0",
+        "webpack-dev-server": "3.2.1",
+        "@types/pixi.js": "^4.5.4"
+    },
+    "scripts": {
+        "build": "webpack",
+        "serve": "webpack-dev-server --mode development"
+    },
+    "dependencies": {
+        "pixi.js": "^4.8.7"
+    }
+}
