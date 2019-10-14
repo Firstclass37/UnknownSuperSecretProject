@@ -8,5 +8,5 @@ export interface IPathSearcher{
 
     IsNeighbors(map: IMap, first: IMapElement, second: IMapElement): boolean;
 
-    GetNeighbors(map: IMap, first: IMapElement, second: IMapElement): IMapElement[];
+    GetNeighbors(map: IMap, element: IMapElement): IMapElement[];
 }
