@@ -1,5 +1,5 @@
-import { IMapElement } from "./iMapElement";
-import { IMap } from "./iMap";
+import { IMapElement } from "./i-map-element";
+import { IMap } from "./i-map";
 
 export interface IPathSearcher{
     SearchPath(map: IMap, start: IMapElement, end: IMapElement): IMapElement[];

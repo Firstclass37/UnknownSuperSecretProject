@@ -1,5 +1,5 @@
 import { Point } from "../Model/point";
-import { IMapElement } from "./iMapElement";
+import { IMapElement } from "./i-map-element";
 
 export interface IMap{
     Map: IMapElement[][];
