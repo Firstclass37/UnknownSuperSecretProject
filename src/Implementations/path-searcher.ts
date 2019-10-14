@@ -14,7 +14,9 @@ export class PathSearcher implements IPathSearcher{
     }
     
     IsNeighbors(map: IMap, first: IMapElement, second: IMapElement): boolean {
-        throw new Error("Method not implemented.");
+        let firstPoint = map.GetIndex(first);
+        let secondPoint = map.GetIndex(second);
+        return Math.abs(firstPoint.X - secondPoint.X) == 1 && Math.abs(firstPoint.Y - secondPoint.Y) == 1;
     }
 
     GetNeighbors(map: IMap, element: IMapElement): IMapElement[] {
