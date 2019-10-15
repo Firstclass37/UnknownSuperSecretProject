@@ -2,7 +2,7 @@ import { IMapElement } from "./i-map-element";
 import { IMap } from "./i-map";
 
 export interface IPathSearcher{
-    searchPath(map: IMap, start: IMapElement, end: IMapElement): IMapElement[];
+    getPath(map: IMap, start: IMapElement, end: IMapElement): IMapElement[];
 
     hasPath(map: IMap, start: IMapElement, end: IMapElement): boolean;
 

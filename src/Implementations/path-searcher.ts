@@ -5,12 +5,15 @@ import { Point } from "../Model/point";
 
 export class PathSearcher implements IPathSearcher{
 
-    searchPath(map: IMap, start: IMapElement, end: IMapElement): IMapElement[] {
+    getPath(map: IMap, start: IMapElement, end: IMapElement): IMapElement[] {
+
+
+
         throw new Error("Method not implemented.");
     }    
 
     hasPath(map: IMap, start: IMapElement, end: IMapElement): boolean {
-        return this.searchPath(map, start, end) != null;
+        return this.getPath(map, start, end) != null;
     }
     
     areNeighbors(map: IMap, first: IMapElement, second: IMapElement): boolean {
