@@ -23,15 +23,19 @@ export class PathSearcher implements IPathSearcher{
         return this.getNeighborsPoints(map, map.GetIndex(element)).map(p => map.GetElement(p));
     }
 
-    getNeighborsPoints(map: IMap, point: Point): Point[]
+    getNeighborsPoints(map: IMap, point: Point, includeDiagonal: boolean = true): Point[]
     {
         let neighbors: Point[] = [];
         for (let i = Math.abs(point.X - 1); i <= Math.min(point.X + 1, map.Map.length - 1); i++)
         {
             for (let j = Math.abs(point.Y - 1); j <= Math.min(point.Y + 1, map.Map[i].length - 1); j++)
             {
-                if (point.X != i && point.Y != j)
+                if (point.X == i && point.Y == j)
+                    continue;
+                
+                if (!includeDiagonal || point.X == i || point.Y == j){
                     neighbors.push(new Point(i, j));
+                }
             }
         }
         return neighbors;
