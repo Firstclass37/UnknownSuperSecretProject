@@ -1,5 +1,5 @@
 export interface IMapElement{
-    IsBlocked: boolean;
+    isBlocked: boolean;
 
-    Speed: number;
+    speed: number;
 }

@@ -6,8 +6,11 @@ import { Point } from "../Model/point";
 export class PathSearcher implements IPathSearcher{
 
     getPath(map: IMap, start: IMapElement, end: IMapElement): IMapElement[] {
+        let startPoint = map.getIndex(start);
+        let endPoint = map.getIndex(end);
 
-
+        let closed: Point[] = [];
+        let open: Point[] = [ startPoint ];
 
         throw new Error("Method not implemented.");
     }    
@@ -17,26 +20,26 @@ export class PathSearcher implements IPathSearcher{
     }
     
     areNeighbors(map: IMap, first: IMapElement, second: IMapElement): boolean {
-        let firstPoint = map.GetIndex(first);
-        let secondPoint = map.GetIndex(second);
-        return Math.abs(firstPoint.X - secondPoint.X) == 1 && Math.abs(firstPoint.Y - secondPoint.Y) == 1;
+        let firstPoint = map.getIndex(first);
+        let secondPoint = map.getIndex(second);
+        return Math.abs(firstPoint.x - secondPoint.x) == 1 && Math.abs(firstPoint.y - secondPoint.y) == 1;
     }
 
     getNeighbors(map: IMap, element: IMapElement): IMapElement[] {
-        return this.getNeighborsPoints(map, map.GetIndex(element)).map(p => map.GetElement(p));
+        return this.getNeighborsPoints(map, map.getIndex(element)).map(p => map.getElement(p));
     }
 
     getNeighborsPoints(map: IMap, point: Point, includeDiagonal: boolean = true): Point[]
     {
         let neighbors: Point[] = [];
-        for (let i = Math.abs(point.X - 1); i <= Math.min(point.X + 1, map.Map.length - 1); i++)
+        for (let i = Math.abs(point.x - 1); i <= Math.min(point.x + 1, map.map.length - 1); i++)
         {
-            for (let j = Math.abs(point.Y - 1); j <= Math.min(point.Y + 1, map.Map[i].length - 1); j++)
+            for (let j = Math.abs(point.y - 1); j <= Math.min(point.y + 1, map.map[i].length - 1); j++)
             {
-                if (point.X == i && point.Y == j)
+                if (point.x == i && point.y == j)
                     continue;
                 
-                if (!includeDiagonal || point.X == i || point.Y == j){
+                if (!includeDiagonal || point.x == i || point.y == j){
                     neighbors.push(new Point(i, j));
                 }
             }

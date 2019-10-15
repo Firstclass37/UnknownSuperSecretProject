@@ -1,9 +1,9 @@
 export class Point{
     constructor(x: number, y: number){
-        this.X = x;
-        this.Y = y;
+        this.x = x;
+        this.y = y;
     }
 
-    X: number;
-    Y: number;
+    x: number;
+    y: number;
 }

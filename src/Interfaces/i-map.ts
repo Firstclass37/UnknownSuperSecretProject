@@ -2,9 +2,9 @@ import { Point } from "../Model/point";
 import { IMapElement } from "./i-map-element";
 
 export interface IMap{
-    Map: IMapElement[][];
+    map: IMapElement[][];
 
-    GetIndex(element: IMapElement): Point;
+    getIndex(element: IMapElement): Point;
 
-    GetElement(point: Point): IMapElement;
+    getElement(point: Point): IMapElement;
 }
