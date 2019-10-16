@@ -46,4 +46,8 @@ export class PathSearcher implements IPathSearcher{
         }
         return neighbors;
     }
+
+    calcPathLength(from: Point, to: Point){
+        return Math.pow(Math.pow(to.x - from.x, 2) + Math.pow(to.y - from.y, 2), 0.5);
+    }
 }
