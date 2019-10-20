@@ -1,12 +1,11 @@
-import { IMapElement } from "./i-map-element";
-import { IMap } from "./i-map";
+import { ISetting } from "../aStar/i-setting";
 
-export interface IPathSearcher{
-    getPath(map: IMap, start: IMapElement, end: IMapElement): IMapElement[];
+export interface IPathSearcher<T>{
+    getPath(start: T, end: T, setting: ISetting<T>): T[];
 
-    hasPath(map: IMap, start: IMapElement, end: IMapElement): boolean;
+    hasPath(start: T, end: T, setting: ISetting<T>): boolean;
 
-    areNeighbors(map: IMap, first: IMapElement, second: IMapElement): boolean;
+    areNeighbors(first: T, second: T, setting: ISetting<T>): boolean;
 
-    getNeighbors(map: IMap, element: IMapElement): IMapElement[];
+    getNeighbors(element: T, setting: ISetting<T>): T[];
 }
