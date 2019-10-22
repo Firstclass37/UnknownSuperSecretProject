@@ -1,11 +1,10 @@
 import { IFScoreStrategy } from "../aStar/i-f-score-strategy";
 import { IMapElement } from "../Interfaces/i-map-element";
-import { IMap } from "../Interfaces/i-map";
-import { Point } from "../Model/point";
+import { IIndexedMap } from "../Interfaces/i-indexed-map";
 
 export class FScoreStrategy implements IFScoreStrategy<IMapElement>{
 
-    constructor(private map: IMap){
+    constructor(private map: IIndexedMap){
 
     }
 
@@ -13,7 +12,7 @@ export class FScoreStrategy implements IFScoreStrategy<IMapElement>{
         return this.getLength(this.map.getIndex(start), this.map.getIndex(end)) + gScore;
     }
 
-    getLength(from: Point, end: Point): number{
-        return Math.pow(Math.pow(end.x - from.x, 2) + Math.pow(end.y - from.y, 2), 0.5);
+    getLength(start: number, end: number): number{
+        return Math.pow(Math.pow(start / this.map.width - end / this.map.width, 2) + Math.pow(start % this.map.width - end % this.map.width, 2), 0.5);
     }
 }
