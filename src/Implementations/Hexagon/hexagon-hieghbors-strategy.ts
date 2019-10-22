@@ -26,22 +26,20 @@ export class HexagonHieghborsStrategy implements INieighborsSearchStrategy<IMapE
         for(let row = Math.max(elementRow - 1, elementRow + 1); row < Math.min(elementRow + 1, rowCount); row += 2){
             let firstNieghbor = row * this.size + elementRowPos;
             nieghbors.push(this.map[firstNieghbor]);
-            if ((elementRow % 2 == 0) == this.even){
-                let nieghborIndex = firstNieghbor + 1;
-                if (nieghborIndex < this.map.length){
-                    nieghbors.push(this.map[nieghborIndex]);
-                }
-            }
-            else{
-                let nieghborIndex = firstNieghbor - 1;
-                if (nieghborIndex >= 0){
-                    nieghbors.push(this.map[nieghborIndex])
-                };
+
+            let secondNieghborIndex = firstNieghbor + this.getNieghborOffset(elementRow);
+            if (secondNieghborIndex >= 0 && secondNieghborIndex <= this.map.length){
+                nieghbors.push(this.map[secondNieghborIndex]);
             }
         }
+
         for(let i = Math.max(pos - 1, pos + 1); pos < Math.min(pos + 1, this.map.length - 1); pos += 2){
             nieghbors.push(this.map[i]);
         }
         return nieghbors;
+    }
+
+    getNieghborOffset(elementRow: number): number{
+        return (elementRow % 2 == 0) == this.even ? 1 : -1;
     }
 }
