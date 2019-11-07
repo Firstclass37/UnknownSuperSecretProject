@@ -11,18 +11,18 @@ export class BonusActivationSystem implements ISystem{
         let player = engine.entities.findOne(PlayerComponent);
         let playerPosition = player.get<PositionComponent>(PositionComponent.name);
 
-        let resources = engine.entities.findMany(BonusComponent);
+        let bonuses = engine.entities.findMany(BonusComponent);
 
-        for(let i = 0; resources.length; i++){
-            let resource = resources[i];
-            let activity = resource.get<BonusActivityComponent>(BonusActivityComponent.name);
+        for(let i = 0; bonuses.length; i++){
+            let bonus = bonuses[i];
+            let activity = bonus.get<BonusActivityComponent>(BonusActivityComponent.name);
 
-            if (activity.activated || playerPosition.position != resource.get<PositionComponent>(PositionComponent.name).position){
+            if (activity.activated || playerPosition.position != bonus.get<PositionComponent>(PositionComponent.name).position){
                 continue;
             }
 
             let stats = player.get<PlayerStatsComponent>(PlayerStatsComponent.name);
-            stats.someBonusStats += resource.get<BonusComponent>(BonusComponent.name).value;
+            stats.someBonusStats += bonus.get<BonusComponent>(BonusComponent.name).value;
 
             activity.activated = true;
             activity.activationTime = engine.time.total;
