@@ -13,6 +13,7 @@ export class BonusDestructionSystem implements ISystem{
 
             if (destruction.needDestruct && !destruction.destructed){
                 //some logic for destruction   
+                destruction.destructed = true;
             }
         }
     }

@@ -13,6 +13,7 @@ import { PlayerStatsComponent } from "../Components/player-stats-component";
 import { MapElementComponent } from "../Components/map-element-component";
 import { BonusDeactivationSystem } from "./bonus-deactivation-system";
 import { ResourceSystem } from "./resource-system";
+import { ResourceDestructionComponent } from "./resource-destruction-system";
 
 export class InitSystem implements ISystem, IInitializableEvent, IDisposableEvent{
 
@@ -33,6 +34,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
         engine.addSystem(new BonusDeactivationSystem())
         engine.addSystem(new BonusDeactivationSystem())
         engine.addSystem(new ResourceSystem())
+        engine.addSystem(new ResourceDestructionComponent())
     }
 
     private AddEnities(engine: IEngine): void{
