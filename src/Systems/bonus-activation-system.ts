@@ -1,7 +1,7 @@
-import { ISystem } from "adane-ecs"
+import { ISystem, IEngine } from "adane-ecs"
 
 export class BonusActivationSystem implements ISystem{
-    update(engine: import("adane-ecs").IEngine): void {
+    update(engine: IEngine): void {
         throw new Error("Method not implemented.");
     }
 }
