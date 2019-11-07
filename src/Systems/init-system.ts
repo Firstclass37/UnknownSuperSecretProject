@@ -10,15 +10,15 @@ import { PositionComponent } from "../Components/position-component";
 import { RenderComponent } from "../Components/render-component";
 import { PlayerComponent } from "../Components/player-component";
 import { PlayerStatsComponent } from "../Components/player-stats-component";
+import { MapElementComponent } from "../Components/map-element-component";
 
 export class InitSystem implements ISystem, IInitializableEvent, IDisposableEvent{
 
     initialize(engine: IEngine): void {
-        //add all systems and entities
-        engine.entities.add(this.CreateBonusEnity());
-        engine.entities.add(this.CreatePlayerEntity())
-        
+        this.AddEnities(engine);
+        this.AddSystems(engine);
     }
+    
     dispose(engine: IEngine): void {
         //clear all entities and systems
     }
@@ -26,6 +26,17 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
     update(engine: IEngine): void {
     }
 
+    private AddSystems(engine: IEngine): void{
+
+    }
+
+    private AddEnities(engine: IEngine): void{
+        engine.entities.add(this.CreateBonusEnity());
+        engine.entities.add(this.CreatePlayerEntity())
+        for(let i = 0; i < 10; i++){
+            engine.entities.add(this.CreateMapElementEntities(i))
+        }
+    }
 
     private CreateBonusEnity(): Entity {
         return new Entity(
@@ -47,6 +58,14 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
             new PlayerStatsComponent(),
             new NameComponent(),
             new PositionComponent(),
+            new RenderComponent());
+    }
+
+    private CreateMapElementEntities(num: number): Entity {
+        return new Entity(
+            Guid.newGuid(), 
+            new MapElementComponent(),
+            new DestructionComponent(),
             new RenderComponent());
     }
 }
