@@ -1,6 +1,6 @@
 import { IComponent } from "adane-ecs"
 
-export class ChangingPositionComponent implements IComponent{
+export class PlayerMoveComponent implements IComponent{
     newPosition: number;
     currentPosition: number;
 }

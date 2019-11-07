@@ -14,6 +14,8 @@ import { MapElementComponent } from "../Components/map-element-component";
 import { BonusDeactivationSystem } from "./bonus-deactivation-system";
 import { ResourceSystem } from "./resource-system";
 import { ResourceDestructionComponent } from "./resource-destruction-system";
+import { TurnCounerSystem } from "./turn-counter-system";
+import { TurnCounterComponent } from "../Components/turn-counter-conponent";
 
 export class InitSystem implements ISystem, IInitializableEvent, IDisposableEvent{
 
@@ -35,6 +37,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
         engine.addSystem(new BonusDeactivationSystem())
         engine.addSystem(new ResourceSystem())
         engine.addSystem(new ResourceDestructionComponent())
+        engine.addSystem(new TurnCounerSystem());
     }
 
     private AddEnities(engine: IEngine): void{
@@ -43,6 +46,8 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
         for(let i = 0; i < 10; i++){
             engine.entities.add(this.CreateMapElementEntities(i))
         }
+
+        engine.entities.add(new Entity(Guid.newGuid(), new TurnCounterComponent()));
     }
 
     private CreateBonusEnity(): Entity {
