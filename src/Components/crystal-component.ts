@@ -1,5 +1,5 @@
 import { IComponent } from "adane-ecs"
 
-export class CrystalNumberComponent implements IComponent{
+export class CrystalComponent implements IComponent{
     value: number;
 }
