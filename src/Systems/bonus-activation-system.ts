@@ -4,6 +4,7 @@ import { PlayerComponent } from "../Components/player-component";
 import { BonusComponent } from "../Components/bonus-component";
 import { BonusActivityComponent } from "../Components/bonus-activity-component";
 import { PlayerStatsComponent } from "../Components/player-stats-component";
+import { DestructionComponent } from "../Components/destruction-component";
 
 export class BonusActivationSystem implements ISystem{
 
@@ -16,8 +17,9 @@ export class BonusActivationSystem implements ISystem{
         for(let i = 0; bonuses.length; i++){
             let bonus = bonuses[i];
             let activity = bonus.get<BonusActivityComponent>(BonusActivityComponent.name);
+            let destruction = bonus.get<DestructionComponent>(DestructionComponent.name);
 
-            if (activity.activated || playerPosition.position != bonus.get<PositionComponent>(PositionComponent.name).position){
+            if (destruction.destructed || activity.activated || playerPosition.position != bonus.get<PositionComponent>(PositionComponent.name).position){
                 continue;
             }
 
@@ -26,6 +28,7 @@ export class BonusActivationSystem implements ISystem{
 
             activity.activated = true;
             activity.activationTime = engine.time.total;
+            destruction.destructed = true;
         }
     }
 }
