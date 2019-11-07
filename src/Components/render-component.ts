@@ -1,5 +1,5 @@
 import { IComponent } from "adane-ecs"
 
-export class SpriteComponent implements IComponent{
+export class RenderComponent implements IComponent{
     //sprite info + additional info
 }
