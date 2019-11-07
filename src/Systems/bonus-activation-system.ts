@@ -28,7 +28,7 @@ export class BonusActivationSystem implements ISystem{
 
             activity.activated = true;
             activity.activationTime = engine.time.total;
-            destruction.destructed = true;
+            destruction.needDestruct = true;
         }
     }
 }

@@ -11,7 +11,7 @@ export class BonusDestructionSystem implements ISystem{
             let bonus = bonuses[i];
             let destruction = bonus.get<DestructionComponent>(DestructionComponent.name);
 
-            if (destruction.destructed){
+            if (destruction.needDestruct && !destruction.destructed){
                 //some logic for destruction   
             }
         }

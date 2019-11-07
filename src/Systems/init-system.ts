@@ -11,6 +11,8 @@ import { RenderComponent } from "../Components/render-component";
 import { PlayerComponent } from "../Components/player-component";
 import { PlayerStatsComponent } from "../Components/player-stats-component";
 import { MapElementComponent } from "../Components/map-element-component";
+import { BonusDeactivationSystem } from "./bonus-deactivation-system";
+import { ResourceSystem } from "./resource-system";
 
 export class InitSystem implements ISystem, IInitializableEvent, IDisposableEvent{
 
@@ -27,7 +29,10 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
     }
 
     private AddSystems(engine: IEngine): void{
-
+        engine.addSystem(new BonusActivationSystem());
+        engine.addSystem(new BonusDeactivationSystem())
+        engine.addSystem(new BonusDeactivationSystem())
+        engine.addSystem(new ResourceSystem())
     }
 
     private AddEnities(engine: IEngine): void{
