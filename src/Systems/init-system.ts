@@ -8,12 +8,15 @@ import { NameComponent } from "../Components/name-component";
 import { DescriptionComponent } from "../Components/description-component";
 import { PositionComponent } from "../Components/position-component";
 import { RenderComponent } from "../Components/render-component";
+import { PlayerComponent } from "../Components/player-component";
+import { PlayerStatsComponent } from "../Components/player-stats-component";
 
 export class InitSystem implements ISystem, IInitializableEvent, IDisposableEvent{
 
     initialize(engine: IEngine): void {
         //add all systems and entities
         engine.entities.add(this.CreateBonusEnity());
+        engine.entities.add(this.CreatePlayerEntity())
         
     }
     dispose(engine: IEngine): void {
@@ -33,6 +36,16 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
             new DurationComponent(), 
             new NameComponent(), 
             new DescriptionComponent(),
+            new PositionComponent(),
+            new RenderComponent());
+    }
+
+    private CreatePlayerEntity(): Entity{
+        return new Entity(
+            Guid.newGuid(), 
+            new PlayerComponent(),
+            new PlayerStatsComponent(),
+            new NameComponent(),
             new PositionComponent(),
             new RenderComponent());
     }
