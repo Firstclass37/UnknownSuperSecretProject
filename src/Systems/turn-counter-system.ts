@@ -5,7 +5,7 @@ import { TurnCounterComponent } from "../Components/turn-counter-conponent";
 export class TurnCounerSystem implements ISystem{
     update(engine: IEngine): void {
         let move = engine.entities.findOne(PlayerMoveComponent);
-        if (move){
+        if (move && move.get<PlayerMoveComponent>(PlayerMoveComponent.name).completed){
             engine.entities.findOne(TurnCounterComponent).get<TurnCounterComponent>(TurnCounterComponent.name).value++;
         }
     }
