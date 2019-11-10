@@ -6,7 +6,7 @@ import { DestructionComponent } from "../Components/destruction-component";
 import { DurationComponent } from "../Components/duration-components";
 import { NameComponent } from "../Components/name-component";
 import { DescriptionComponent } from "../Components/description-component";
-import { PositionComponent } from "../Components/position-component";
+import { MapPositionComponent } from "../Components/map-position-component";
 import { RenderComponent } from "../Components/render-component";
 import { PlayerComponent } from "../Components/player-component";
 import { PlayerStatsComponent } from "../Components/player-stats-component";
@@ -74,7 +74,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
             new RenderComponent(),
             new CrystalComponent(),
             new NameComponent(),
-            new PositionComponent(),
+            new MapPositionComponent(),
             new DescriptionComponent(),
             new DestructionComponent());
     }
@@ -88,7 +88,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
             new DurationComponent(), 
             new NameComponent(), 
             new DescriptionComponent(),
-            new PositionComponent(),
+            new MapPositionComponent(),
             new RenderComponent());
     }
 
@@ -98,7 +98,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
             new PlayerComponent(),
             new PlayerStatsComponent(),
             new NameComponent(),
-            new PositionComponent(),
+            new MapPositionComponent(),
             new RenderComponent());
     }
 

@@ -1,5 +1,5 @@
 import { ISystem, IEngine } from "adane-ecs"
-import { PositionComponent } from "../Components/position-component";
+import { MapPositionComponent } from "../Components/map-position-component";
 import { PlayerComponent } from "../Components/player-component";
 import { BonusComponent } from "../Components/bonus-component";
 import { BonusActivityComponent } from "../Components/bonus-activity-component";
@@ -10,7 +10,7 @@ export class BonusActivationSystem implements ISystem{
 
     update(engine: IEngine): void {
         let player = engine.entities.findOne(PlayerComponent);
-        let playerPosition = player.get<PositionComponent>(PositionComponent.name);
+        let playerPosition = player.get<MapPositionComponent>(MapPositionComponent.name);
 
         let bonuses = engine.entities.findMany(BonusComponent);
 
@@ -19,7 +19,7 @@ export class BonusActivationSystem implements ISystem{
             let activity = bonus.get<BonusActivityComponent>(BonusActivityComponent.name);
             let destruction = bonus.get<DestructionComponent>(DestructionComponent.name);
 
-            if (destruction.destructed || activity.activated || playerPosition.position != bonus.get<PositionComponent>(PositionComponent.name).position){
+            if (destruction.destructed || activity.activated || playerPosition.mapElementNumber != bonus.get<MapPositionComponent>(MapPositionComponent.name).mapElementNumber){
                 continue;
             }
 
