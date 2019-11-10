@@ -19,6 +19,7 @@ import { TurnCounterComponent } from "../Components/turn-counter-conponent";
 import { CrystalQuestSystem } from "./crystal-quest-system";
 import { CrystalQuestComponent } from "../Components/crystal-quest-component";
 import { CrystalComponent } from "../Components/crystal-component";
+import { CrystalDestructionSystem } from "./crystal-destruction-system";
 
 export class InitSystem implements ISystem, IInitializableEvent, IDisposableEvent{
 
@@ -42,6 +43,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
         engine.addSystem(new ResourceDestructionComponent())
         engine.addSystem(new TurnCounerSystem());
         engine.addSystem(new CrystalQuestSystem())
+        engine.addSystem(new CrystalDestructionSystem())
     }
 
     private AddEnities(engine: IEngine): void{
