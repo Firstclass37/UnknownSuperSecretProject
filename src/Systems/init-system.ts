@@ -24,6 +24,7 @@ import { InteractionSystem } from "./interaction-system";
 import { InteractionComponent } from "../Components/interaction-component";
 import { InputComponent } from "../Components/input-component";
 import { InputSystem } from "./input-system";
+import { MapElementDestructionSystem } from "./map-element-destruction-system";
 
 export class InitSystem implements ISystem, IInitializableEvent, IDisposableEvent{
 
@@ -50,6 +51,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
         engine.addSystem(new CrystalDestructionSystem())
         engine.addSystem(new InteractionSystem());
         engine.addSystem(new InputSystem())
+        engine.addSystem(new MapElementDestructionSystem())
     }
 
     private addEnities(engine: IEngine): void{
