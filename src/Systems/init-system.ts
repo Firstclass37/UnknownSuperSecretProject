@@ -28,8 +28,8 @@ import { InputSystem } from "./input-system";
 export class InitSystem implements ISystem, IInitializableEvent, IDisposableEvent{
 
     initialize(engine: IEngine): void {
-        this.AddEnities(engine);
-        this.AddSystems(engine);
+        this.addEnities(engine);
+        this.addSystems(engine);
     }
     
     dispose(engine: IEngine): void {
@@ -39,7 +39,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
     update(engine: IEngine): void {
     }
 
-    private AddSystems(engine: IEngine): void{
+    private addSystems(engine: IEngine): void{
         engine.addSystem(new BonusActivationSystem());
         engine.addSystem(new BonusDeactivationSystem())
         engine.addSystem(new BonusDeactivationSystem())
@@ -52,7 +52,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
         engine.addSystem(new InputSystem())
     }
 
-    private AddEnities(engine: IEngine): void{
+    private addEnities(engine: IEngine): void{
         engine.entities.add(this.createBonusEnity());
         engine.entities.add(this.createPlayerEntity())
         for(let i = 0; i < 10; i++){
