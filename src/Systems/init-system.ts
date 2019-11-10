@@ -20,6 +20,10 @@ import { CrystalQuestSystem } from "./crystal-quest-system";
 import { CrystalQuestComponent } from "../Components/crystal-quest-component";
 import { CrystalComponent } from "../Components/crystal-component";
 import { CrystalDestructionSystem } from "./crystal-destruction-system";
+import { InteractionSystem } from "./interaction-system";
+import { InteractionComponent } from "../Components/interaction-component";
+import { InputComponent } from "../Components/input-component";
+import { InputSystem } from "./input-system";
 
 export class InitSystem implements ISystem, IInitializableEvent, IDisposableEvent{
 
@@ -44,6 +48,8 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
         engine.addSystem(new TurnCounerSystem());
         engine.addSystem(new CrystalQuestSystem())
         engine.addSystem(new CrystalDestructionSystem())
+        engine.addSystem(new InteractionSystem());
+        engine.addSystem(new InputSystem())
     }
 
     private AddEnities(engine: IEngine): void{
@@ -57,7 +63,9 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
         }
 
         engine.entities.add(new Entity(Guid.newGuid(), new TurnCounterComponent()));
-        engine.entities.add(new Entity(Guid.newGuid(), new CrystalQuestComponent()))
+        engine.entities.add(new Entity(Guid.newGuid(), new CrystalQuestComponent()));
+        engine.entities.add(new Entity(Guid.newGuid(), new InteractionComponent()));
+        engine.entities.add(new Entity(Guid.newGuid(), new InputComponent()));
     }
 
     private createCrystal(num: number): Entity{

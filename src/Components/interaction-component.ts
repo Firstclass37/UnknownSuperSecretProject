@@ -1,5 +1,5 @@
-import { Entity, IComponent } from "adane-ecs"
+import { IComponent } from "adane-ecs"
 
 export class InteractionComponent implements IComponent {
-    interactedWithId: string;
+    lastInteractedWithId: string;
 }
