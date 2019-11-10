@@ -14,8 +14,6 @@ import { MapElementComponent } from "../Components/map-element-component";
 import { BonusDeactivationSystem } from "./bonus-deactivation-system";
 import { ResourceSystem } from "./resource-system";
 import { ResourceDestructionComponent } from "./resource-destruction-system";
-import { TurnCounerSystem } from "./turn-counter-system";
-import { TurnCounterComponent } from "../Components/turn-counter-conponent";
 import { CrystalQuestSystem } from "./crystal-quest-system";
 import { CrystalQuestComponent } from "../Components/crystal-quest-component";
 import { CrystalComponent } from "../Components/crystal-component";
@@ -46,7 +44,6 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
         engine.addSystem(new BonusDeactivationSystem())
         engine.addSystem(new ResourceSystem())
         engine.addSystem(new ResourceDestructionComponent())
-        engine.addSystem(new TurnCounerSystem());
         engine.addSystem(new CrystalQuestSystem())
         engine.addSystem(new CrystalDestructionSystem())
         engine.addSystem(new InteractionSystem());
@@ -64,7 +61,6 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
             engine.entities.add(this.createCrystal(i))
         }
 
-        engine.entities.add(new Entity(Guid.newGuid(), new TurnCounterComponent()));
         engine.entities.add(new Entity(Guid.newGuid(), new CrystalQuestComponent()));
         engine.entities.add(new Entity(Guid.newGuid(), new InteractionComponent()));
         engine.entities.add(new Entity(Guid.newGuid(), new InputComponent()));
