@@ -16,6 +16,9 @@ import { ResourceSystem } from "./resource-system";
 import { ResourceDestructionComponent } from "./resource-destruction-system";
 import { TurnCounerSystem } from "./turn-counter-system";
 import { TurnCounterComponent } from "../Components/turn-counter-conponent";
+import { CrystalQuestSystem } from "./crystal-quest-system";
+import { CrystalQuestComponent } from "../Components/crystal-quest-component";
+import { CrystalComponent } from "../Components/crystal-component";
 
 export class InitSystem implements ISystem, IInitializableEvent, IDisposableEvent{
 
@@ -38,19 +41,35 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
         engine.addSystem(new ResourceSystem())
         engine.addSystem(new ResourceDestructionComponent())
         engine.addSystem(new TurnCounerSystem());
+        engine.addSystem(new CrystalQuestSystem())
     }
 
     private AddEnities(engine: IEngine): void{
-        engine.entities.add(this.CreateBonusEnity());
-        engine.entities.add(this.CreatePlayerEntity())
+        engine.entities.add(this.createBonusEnity());
+        engine.entities.add(this.createPlayerEntity())
         for(let i = 0; i < 10; i++){
-            engine.entities.add(this.CreateMapElementEntities(i))
+            engine.entities.add(this.createMapElementEntities(i))
+        }
+        for(let i = 0; i < 10; i++){
+            engine.entities.add(this.createCrystal(i))
         }
 
         engine.entities.add(new Entity(Guid.newGuid(), new TurnCounterComponent()));
+        engine.entities.add(new Entity(Guid.newGuid(), new CrystalQuestComponent()))
     }
 
-    private CreateBonusEnity(): Entity {
+    private createCrystal(num: number): Entity{
+        return new Entity(
+            Guid.newGuid(), 
+            new RenderComponent(),
+            new CrystalComponent(),
+            new NameComponent(),
+            new PositionComponent(),
+            new DescriptionComponent(),
+            new DestructionComponent());
+    }
+
+    private createBonusEnity(): Entity {
         return new Entity(
             Guid.newGuid(), 
             new BonusComponent(), 
@@ -63,7 +82,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
             new RenderComponent());
     }
 
-    private CreatePlayerEntity(): Entity{
+    private createPlayerEntity(): Entity{
         return new Entity(
             Guid.newGuid(), 
             new PlayerComponent(),
@@ -73,7 +92,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
             new RenderComponent());
     }
 
-    private CreateMapElementEntities(num: number): Entity {
+    private createMapElementEntities(num: number): Entity {
         return new Entity(
             Guid.newGuid(), 
             new MapElementComponent(),
