@@ -9,7 +9,7 @@ export class MoveSystem implements ISystem {
         let currentPlayerPosition = engine.entities.findOne(PlayerComponent).get<MapPositionComponent>(MapPositionComponent.name);
         let movement = engine.entities.findOne(PlayerMoveComponent).get<PlayerMoveComponent>(PlayerMoveComponent.name);
         if (movement.path.indexOf(currentPlayerPosition.mapElementNumber) != movement.path.length - 1){
-            let nextNum = movement.path[movement.path.indexOf(currentPlayerPosition.mapElementNumber) - 1];
+            let nextNum = movement.path[movement.path.indexOf(currentPlayerPosition.mapElementNumber) + 1];
             let nextMapElement = this.findElement(nextNum, engine).get<MapElementComponent>(MapElementComponent.name);
 
             this.moveTo(nextMapElement, engine);

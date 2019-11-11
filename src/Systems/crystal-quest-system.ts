@@ -23,7 +23,7 @@ export class CrystalQuestSystem implements ISystem{
                 playerPos.mapElementNumber == position.mapElementNumber &&
                 this.canRaise(crystalComp, crystalSequence, crystals)){
 
-                destruction.destructed = true;
+                destruction.needDestruct = true;
                 crystalComp.raised = true;
             }
         }

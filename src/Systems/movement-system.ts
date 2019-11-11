@@ -10,7 +10,7 @@ export class MovementSystem implements ISystem {
         let interacted = engine.entities.findOne(InteractionComponent).get<InteractionComponent>(InteractionComponent.name);
         if (interacted){
             let entity = engine.entities.get(interacted.lastInteractedWithId);
-            if (entity.has(MapElementComponent.name)){
+            if (entity.has(MapElementComponent.name)) {
                 let targetPosition = entity.get<MapElementComponent>(MapElementComponent.name);
                 let currentPlayerPosition = engine.entities.findOne(PlayerComponent).get<MapPositionComponent>(MapPositionComponent.name);
 
