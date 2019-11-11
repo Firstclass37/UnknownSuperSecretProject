@@ -26,6 +26,7 @@ import { MapElementDestructionSystem } from "./map-element-destruction-system";
 import { MovementSystem } from "./movement-system";
 import { PlayerMoveComponent } from "../Components/player-move-component";
 import { OneLifeMapElementSystem } from "./one-life-map-element-system";
+import { MoveSystem } from "./move-system";
 
 export class InitSystem implements ISystem, IInitializableEvent, IDisposableEvent{
 
@@ -53,6 +54,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
         engine.addSystem(new InputSystem());
         engine.addSystem(new MapElementDestructionSystem());
         engine.addSystem(new MovementSystem());
+        engine.addSystem(new MoveSystem());
         engine.addSystem(new OneLifeMapElementSystem());
     }
 
