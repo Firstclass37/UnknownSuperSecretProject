@@ -1,8 +1,3 @@
-import { PixiHost } from "adane-ecs-pixi";
+import { Game } from "./game";
 
-let settings = {
-    width: 800,
-    height: 640
-}
-let host = new PixiHost();
-host.run(settings, []);
+new Game();
