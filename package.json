@@ -16,6 +16,8 @@
     "dependencies": {
         "pixi.js": "^4.8.7",
         "adane-system": "file:../../modules/adane-system",
-        "adane-ecs": "file:../../modules/adane-ecs"
+        "adane-ecs": "file:../../modules/adane-ecs",
+        "adane-ecs-graphics": "file:../../modules/adane-ecs-graphics",
+        "adane-ecs-pixi": "file:../../modules/adane-ecs-pixi"
     }
 }

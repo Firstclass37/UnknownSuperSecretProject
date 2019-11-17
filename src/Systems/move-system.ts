@@ -18,7 +18,7 @@ export class MoveSystem implements ISystem {
     }
 
     private moveTo(target: MapElementComponent, engine: IEngine): void{
-        //login for changing player absolute coordinates
+        //logic for changing player absolute coordinates
     }
 
     private getPlayerPosition(engine: IEngine): number{
