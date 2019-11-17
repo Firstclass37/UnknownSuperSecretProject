@@ -3,10 +3,9 @@ import { IMapElement } from "../../Interfaces/i-map-element";
 import { IndexedMap } from "../indexed-map";
 
 export class SquareNieghborsSearchStrategy implements INieighborsSearchStrategy<IMapElement>{
-    diagonalAvailable: boolean;
     map: IndexedMap;
 
-    constructor(map: IndexedMap){
+    constructor(map: IndexedMap, private diagonalAvailable: boolean){
         this.map = map;
     }
 

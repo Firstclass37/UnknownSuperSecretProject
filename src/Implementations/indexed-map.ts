@@ -7,6 +7,13 @@ export class IndexedMap implements IIndexedMap{
     map: IMapElement[];   
     mapMap: Map<IMapElement, number>;
 
+    constructor(map: IMapElement[]){
+        this.map = map;
+        this.mapMap = new Map<IMapElement, number>();
+        for(let i = 0; i < map.length; i++){
+            this.mapMap.set(map[i], i);
+        }
+    }
 
     getIndex(element: IMapElement): number {
         if (this.mapMap.has(element)) {
