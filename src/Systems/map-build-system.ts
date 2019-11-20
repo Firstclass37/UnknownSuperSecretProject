@@ -14,8 +14,8 @@ export class MapBuildSystem implements ISystem {
         let spriteHeigth = 30;
         let paddingBetween = 1;
 
-        let horizontalPadding = (width - eachRow * spriteWidth - (eachRow - 1) * paddingBetween) /2;
-        let verticalPadding = (heigth - rowCount * spriteHeigth - (rowCount - 1) * paddingBetween) /2;
+        let horizontalPadding = (width - eachRow * spriteWidth - (eachRow - 1) * paddingBetween) / 2;
+        let verticalPadding = (heigth - rowCount * spriteHeigth - (rowCount - 1) * paddingBetween) / 2;
 
         for (let row = 1; row <= rowCount; row++){
             for(let column = 1; column <= eachRow; column++){
