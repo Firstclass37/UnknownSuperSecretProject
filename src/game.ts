@@ -6,7 +6,7 @@ import { TaskEngineExtender } from "adane-ecs-tasks";
 export class Game{
     constructor() {
         new PixiHost(new SystemLifetimeEngineExtender(), new TaskEngineExtender()).run(
-            { width: 640, height: 360 },
+            { width: 800, height: 480 },
             [ 
                 new BootstrapSystem()
             ]);
