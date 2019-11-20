@@ -43,19 +43,19 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
     }
 
     private addSystems(engine: IEngine): void{
-        engine.addSystem(new BonusActivationSystem());
-        engine.addSystem(new BonusDeactivationSystem());
-        engine.addSystem(new BonusDeactivationSystem());
-        engine.addSystem(new ResourceSystem());
-        engine.addSystem(new ResourceDestructionComponent());
-        engine.addSystem(new CrystalQuestSystem());
-        engine.addSystem(new CrystalDestructionSystem());
-        engine.addSystem(new InteractionSystem());
-        engine.addSystem(new InputSystem());
-        engine.addSystem(new MapElementDestructionSystem());
-        engine.addSystem(new MovementSystem());
-        engine.addSystem(new MoveSystem());
-        engine.addSystem(new OneLifeMapElementSystem());
+        // engine.addSystem(new BonusActivationSystem());
+        // engine.addSystem(new BonusDeactivationSystem());
+        // engine.addSystem(new BonusDeactivationSystem());
+        // engine.addSystem(new ResourceSystem());
+        // engine.addSystem(new ResourceDestructionComponent());
+        // engine.addSystem(new CrystalQuestSystem());
+        // engine.addSystem(new CrystalDestructionSystem());
+        // engine.addSystem(new InteractionSystem());
+        // engine.addSystem(new InputSystem());
+        // engine.addSystem(new MapElementDestructionSystem());
+        // engine.addSystem(new MovementSystem());
+        // engine.addSystem(new MoveSystem());
+        // engine.addSystem(new OneLifeMapElementSystem());
     }
 
     private addEnities(engine: IEngine): void{

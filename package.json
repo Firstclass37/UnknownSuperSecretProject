@@ -15,9 +15,12 @@
     },
     "dependencies": {
         "pixi.js": "^4.8.7",
+        "copy-webpack-plugin": "5.0.5",
         "adane-system": "file:../../modules/adane-system",
         "adane-ecs": "file:../../modules/adane-ecs",
         "adane-ecs-graphics": "file:../../modules/adane-ecs-graphics",
-        "adane-ecs-pixi": "file:../../modules/adane-ecs-pixi"
+        "adane-ecs-graphics-ext": "file:../../modules/adane-ecs-graphics-ext",
+        "adane-ecs-tasks": "file:../../modules/adane-ecs-tasks",
+        "adane-ecs-hosting-pixi": "file:../../modules/adane-ecs-hosting-pixi"
     }
 }
