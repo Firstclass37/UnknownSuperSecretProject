@@ -1,7 +1,7 @@
 {
-    "Player": 0,
-    "Towers": [],
-    "Crystal": [],
-    "Boots": [],
-    "Shields": []
+    "player": 0,
+    "towers": [],
+    "crystal": [],
+    "boots": [],
+    "shields": []
 } 

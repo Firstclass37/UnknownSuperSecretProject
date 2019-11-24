@@ -1,6 +1,12 @@
 export class GameSettings{
-    constructor(
-        public mapWidth = 6,
-        public mapHeigth = 6) {
-    }
+    public size: {
+        windowWidth: number,
+        windowHieght: number,
+        spriteSize: number
+    };
+    public map: {
+        width: number,
+        hieght: number
+    };
+    
 }

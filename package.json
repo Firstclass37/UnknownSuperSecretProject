@@ -1,26 +1,27 @@
 {
     "name": "super-secret-project",
     "devDependencies": {
+        "@types/pixi.js": "^4.5.4",
         "file-loader": "3.0.1",
         "ts-loader": "5.3.3",
         "typescript": "3.3.4000",
         "webpack": "4.29.6",
         "webpack-cli": "3.3.0",
-        "webpack-dev-server": "3.2.1",
-        "@types/pixi.js": "^4.5.4"
+        "webpack-dev-server": "3.2.1"
     },
     "scripts": {
         "build": "webpack",
         "serve": "webpack-dev-server --mode development"
     },
     "dependencies": {
-        "pixi.js": "^4.8.7",
-        "copy-webpack-plugin": "5.0.5",
-        "adane-system": "file:../../modules/adane-system",
         "adane-ecs": "file:../../modules/adane-ecs",
         "adane-ecs-graphics": "file:../../modules/adane-ecs-graphics",
         "adane-ecs-graphics-ext": "file:../../modules/adane-ecs-graphics-ext",
+        "adane-ecs-hosting-pixi": "file:../../modules/adane-ecs-hosting-pixi",
         "adane-ecs-tasks": "file:../../modules/adane-ecs-tasks",
-        "adane-ecs-hosting-pixi": "file:../../modules/adane-ecs-hosting-pixi"
+        "adane-system": "file:../../modules/adane-system",
+        "copy-webpack-plugin": "5.0.5",
+        "json2typescript": "^1.2.3",
+        "pixi.js": "^4.8.7"
     }
 }

@@ -1,11 +1,11 @@
 {
-    "Size": {
-        "WindowWidth": 800,
-        "WindowHieght": 480,
-        "SpriteSize": 40
+    "size": {
+        "windowWidth": 800,
+        "windowHieght": 480,
+        "spriteSize": 40
     },
-    "Map": {
-        "Width": 19,
-        "Hieght": 11
+    "map": {
+        "width": 19,
+        "hieght": 11
     }
 }
