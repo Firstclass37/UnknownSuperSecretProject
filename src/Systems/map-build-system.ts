@@ -22,19 +22,30 @@ export class MapBuildSystem implements ISystem {
             for(let column = 1; column <= gameSettings.map.width; column++){
                 let x = horizontalPadding + (column - 1) * (gameSettings.size.spriteSize + paddingBetween);
                 let y = verticalPadding + (row - 1) * (gameSettings.size.spriteSize + paddingBetween);
-
-                let renderable = this.createRenderable(AssetsConsts.mapElementSprite, `mapElement${column},${row}`, x, y);
-                let entity = new Entity(Guid.newGuid(), renderable);
-                engine.entities.add(entity);
+                let position = (row - 1) * gameSettings.map.width + column - 1;
+                
+                engine.entities.add(this.createMapElement(x, y, position));
+                if (position == mapSettings.player){
+                    engine.entities.add(this.createPlayer(x, y, position));
+                }
             }
         }
         engine.removeSystem(this);
+    }
+
+
+    private createMapElement(x: number, y: number, position: number): Entity{
+        let renderable = this.createRenderable(AssetsConsts.mapElementSprite, `mapElement${x},${y}`, x, y);
+        return new Entity(Guid.newGuid(), renderable);
+    }
+
+    private createPlayer(x: number, y: number, position: number): Entity{
+        let renderable = this.createRenderable(AssetsConsts.playerSprite, `player`, x, y);
+        return new Entity(Guid.newGuid(), renderable);
     }
 
     private createRenderable(asset: string, name: string, xPos: number, yPos: number): RenderableComponent{
         let component = new RenderableComponent(Renderable.define((factory) => factory.sprite( { name: name, texture: asset, position: {x: xPos, y: yPos}} )));
         return component;
     }
-
-   
 }
