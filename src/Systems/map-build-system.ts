@@ -28,6 +28,18 @@ export class MapBuildSystem implements ISystem {
                 if (position == mapSettings.player){
                     engine.entities.add(this.createPlayer(x, y, position));
                 }
+                if (mapSettings.towers.indexOf(position) > -1){
+                    engine.entities.add(this.createTower(x, y, position));
+                }
+                if (mapSettings.boots.indexOf(position) > -1){
+                    engine.entities.add(this.createBoot(x, y, position));
+                }
+                if (mapSettings.crystal.indexOf(position) > -1){
+                    engine.entities.add(this.createCrystal(x, y, position));
+                }
+                if (mapSettings.shields.indexOf(position) > -1){
+                    engine.entities.add(this.createShield(x, y, position));
+                }
             }
         }
         engine.removeSystem(this);
@@ -41,6 +53,26 @@ export class MapBuildSystem implements ISystem {
 
     private createPlayer(x: number, y: number, position: number): Entity{
         let renderable = this.createRenderable(AssetsConsts.playerSprite, `player`, x, y);
+        return new Entity(Guid.newGuid(), renderable);
+    }
+
+    private createTower(x: number, y: number, position: number): Entity{
+        let renderable = this.createRenderable(AssetsConsts.towerSprite, `tower${position}`, x, y);
+        return new Entity(Guid.newGuid(), renderable);
+    }
+
+    private createCrystal(x: number, y: number, position: number): Entity{
+        let renderable = this.createRenderable(AssetsConsts.crystalSprite, `crystal${position}`, x, y);
+        return new Entity(Guid.newGuid(), renderable);
+    }
+
+    private createBoot(x: number, y: number, position: number): Entity{
+        let renderable = this.createRenderable(AssetsConsts.bootsSprite, `boot${position}`, x, y);
+        return new Entity(Guid.newGuid(), renderable);
+    }
+
+    private createShield(x: number, y: number, position: number): Entity{
+        let renderable = this.createRenderable(AssetsConsts.shieldSprite, `shield${position}`, x, y);
         return new Entity(Guid.newGuid(), renderable);
     }
 
