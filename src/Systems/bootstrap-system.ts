@@ -10,7 +10,8 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
     initialize(engine: IEngine): void {
 
         Task.start(this, new LoadAssetTask('squareAssetLoading', [ AssetsConsts.mapElementSprite ]))
-            .onComplete((t) => engine.addSystem(new MapBuildSystem()))
+            .onComplete((t) => engine.addSystem(new MapBuildSystem()));
+        
     }
 
     update(engine: IEngine): void {

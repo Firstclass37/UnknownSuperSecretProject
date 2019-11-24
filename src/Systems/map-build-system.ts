@@ -1,17 +1,18 @@
 import { ISystem, IEngine, Entity } from "adane-ecs"
-import { RenderableComponent, Renderable, SpriteObject } from "adane-ecs-graphics"
+import { RenderableComponent, Renderable } from "adane-ecs-graphics"
 import { Guid } from "adane-system";
+import { AssetsConsts } from "../assets-consts";
 
 
 export class MapBuildSystem implements ISystem {
 
     update(engine: IEngine): void {
         let width = 800;
-        let heigth = 640;
-        let eachRow = 6;
-        let rowCount = 6;
-        let spriteWidth = 30;
-        let spriteHeigth = 30;
+        let heigth = 480;
+        let eachRow = 19;
+        let rowCount = 11;
+        let spriteWidth = 40;
+        let spriteHeigth = 40;
         let paddingBetween = 1;
 
         let horizontalPadding = (width - eachRow * spriteWidth - (eachRow - 1) * paddingBetween) / 2;
@@ -27,14 +28,11 @@ export class MapBuildSystem implements ISystem {
                 engine.entities.add(entity);
             }
         }
-
         engine.removeSystem(this);
     }
 
     private createRenderable(name: string, xPos: number, yPos: number): RenderableComponent{
-        let component = new RenderableComponent(Renderable.define((factory) => factory.sprite( { texture: "./assets/square.png", name: name} )));
-        component.renderable.set(SpriteObject, name,  (x) => x.position = {x: xPos, y: yPos});
+        let component = new RenderableComponent(Renderable.define((factory) => factory.sprite( { name: name, texture: AssetsConsts.mapElementSprite, position: {x: xPos, y: yPos}} )));
         return component;
     }
-
 }

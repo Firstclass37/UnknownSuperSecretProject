@@ -14,6 +14,8 @@ export class BonusActivationSystem implements ISystem{
 
         let bonuses = engine.entities.findMany(BonusComponent);
 
+        engine.entities
+
         for(let i = 0; bonuses.length; i++){
             let bonus = bonuses[i];
             let activity = bonus.get<BonusActivityComponent>(BonusActivityComponent.name);
