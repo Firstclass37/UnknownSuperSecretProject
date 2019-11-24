@@ -9,12 +9,27 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
 
     initialize(engine: IEngine): void {
 
-        Task.start(this, new LoadAssetTask('squareAssetLoading', [ AssetsConsts.mapElementSprite ]))
+        Task.start(this, new LoadAssetTask('squareAssetLoading', this.getAssets()))
             .onComplete((t) => engine.addSystem(new MapBuildSystem()));
         
     }
 
     update(engine: IEngine): void {
+    }
+
+
+    private getAssets(): string[]{
+        return [
+            AssetsConsts.mapElementSprite,
+            AssetsConsts.bootsSprite,
+            AssetsConsts.crystalSprite,
+            AssetsConsts.playerSprite,
+            AssetsConsts.shieldSprite,
+            AssetsConsts.towerSprite,
+
+            AssetsConsts.gameSettings,
+            AssetsConsts.mapSettings,
+        ];
     }
 
 }
