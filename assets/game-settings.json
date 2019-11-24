@@ -1,0 +1,16 @@
+{
+    "Size": {
+        "WindowWidth": 800,
+        "WindowHieght": 480,
+        "SpriteSize": 40
+    },
+    "Map": {
+        "Width": 19,
+        "Hieght": 11,
+        "Player": 1,
+        "Towers": [],
+        "Crystal": [],
+        "Boots": [],
+        "Shields": []
+    }
+}
