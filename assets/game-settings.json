@@ -6,11 +6,6 @@
     },
     "Map": {
         "Width": 19,
-        "Hieght": 11,
-        "Player": 1,
-        "Towers": [],
-        "Crystal": [],
-        "Boots": [],
-        "Shields": []
+        "Hieght": 11
     }
 }
