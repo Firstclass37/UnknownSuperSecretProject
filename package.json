@@ -21,7 +21,6 @@
         "adane-ecs-tasks": "file:../../modules/adane-ecs-tasks",
         "adane-system": "file:../../modules/adane-system",
         "copy-webpack-plugin": "5.0.5",
-        "json2typescript": "^1.2.3",
         "pixi.js": "^4.8.7"
     }
 }
