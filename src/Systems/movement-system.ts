@@ -10,6 +10,7 @@ import { IndexedMap } from "../Implementations/indexed-map";
 import { SquareNieghborsSearchStrategy } from "../Implementations/Square/square-nieghbors-search-strategy";
 import { PathSearcher } from "../aStar/path-searcher";
 import { DestructionComponent } from "../Components/destruction-component";
+import { RhombusNieghborsSearchStrategy } from "../Implementations/Rhombus/rhombus-nieghbors-search-strategy";
 
 export class MovementSystem implements ISystem {
     update(engine: IEngine): void {
@@ -31,7 +32,7 @@ export class MovementSystem implements ISystem {
         let settings = {
             gScoreStrategy: new SquareGScoreStrategy(),
             fScoreStrategy: new FScoreStrategy(indexedMap),
-            neighborsSearchStrategy: new SquareNieghborsSearchStrategy(indexedMap, false)
+            neighborsSearchStrategy: new RhombusNieghborsSearchStrategy(indexedMap, false, false)
         };
         let pathSearcher = new PathSearcher();
         let path = pathSearcher.getPath(indexedMap.getElement(start), indexedMap.getElement(end), settings);
