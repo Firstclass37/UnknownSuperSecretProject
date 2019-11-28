@@ -2,7 +2,8 @@ export class GameSettings{
     public size: {
         windowWidth: number,
         windowHieght: number,
-        spriteSize: number
+        spriteWidth: number,
+        spriteHieght: number
     };
     public map: {
         width: number,

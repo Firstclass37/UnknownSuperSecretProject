@@ -45,6 +45,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
             AssetsConsts.playerSprite,
             AssetsConsts.shieldSprite,
             AssetsConsts.towerSprite,
+            AssetsConsts.mapElementSprite2,
 
             AssetsConsts.gameSettings,
             AssetsConsts.mapSettings,
