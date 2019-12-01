@@ -46,7 +46,7 @@ export class RhombusNieghborsSearchStrategy implements INieighborsSearchStrategy
         }
         
         return nieghbors
-            .filter(e => e >= 0 && e <= this.map.map.length)
+            .filter(e => e >= 0 && e < this.map.map.length)
             .map(e => this.map.getElement(e));
         
     }   

@@ -20,6 +20,7 @@
         "adane-ecs-hosting-pixi": "file:../../modules/adane-ecs-hosting-pixi",
         "adane-ecs-tasks": "file:../../modules/adane-ecs-tasks",
         "adane-system": "file:../../modules/adane-system",
+        "adane-ecs-input": "file:../../modules/adane-ecs-input",
         "copy-webpack-plugin": "5.0.5",
         "pixi.js": "^4.8.7"
     }

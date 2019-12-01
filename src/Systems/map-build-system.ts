@@ -3,7 +3,8 @@ import { RenderableComponent, Renderable } from "adane-ecs-graphics"
 import { Guid } from "adane-system";
 import { AssetsConsts } from "../assets-consts";
 import { SettingsComponent } from "../Components/settings-componen";
-
+import { InputComponent, PointerDownInputTrigger } from "adane-ecs-input";
+import { InputTestSystem } from "./input-test-system"
 
 export class MapBuildSystem implements ISystem {
 
@@ -34,12 +35,16 @@ export class MapBuildSystem implements ISystem {
             }
         }
         engine.removeSystem(this);
+
+
+        engine.addSystem(new InputTestSystem());
     }
 
 
     private createMapElement(x: number, y: number, position: number): Entity{
         let renderable = this.createRenderable(AssetsConsts.mapElementSprite2, `mapElement${x},${y}`, x, y);
-        return new Entity(Guid.newGuid(), renderable);
+        let input = new InputComponent(new PointerDownInputTrigger());
+        return new Entity(Guid.newGuid(), renderable, input);
     }
 
     private createPlayer(x: number, y: number, position: number): Entity{
