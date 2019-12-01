@@ -4,7 +4,7 @@ import { Guid } from "adane-system";
 import { AssetsConsts } from "../assets-consts";
 import { SettingsComponent } from "../Components/settings-componen";
 import { InputComponent, PointerDownInputTrigger } from "adane-ecs-input";
-import { InputTestSystem } from "./input-test-system"
+import { MapElementComponent } from "../Components/map-element-component";
 
 export class MapBuildSystem implements ISystem {
 
@@ -14,37 +14,24 @@ export class MapBuildSystem implements ISystem {
         let gameSettings = settings.gameSettings;
         let mapSettings = settings.mapSettings;
 
-        let horizontalPadding = (gameSettings.size.windowWidth - gameSettings.map.width * gameSettings.size.spriteWidth) / 2;
-        let verticalPadding = (gameSettings.size.windowHieght - gameSettings.map.hieght * gameSettings.size.spriteHieght / 2) / 2;
-        let additionalPadding = gameSettings.size.spriteWidth / 2;
 
-        for (let row = 1; row <= gameSettings.map.hieght; row++){
-            for(let column = 1; column <= gameSettings.map.width; column++){
-                if (row % 2 == 0 && column == gameSettings.map.width){
-                    break;
-                }
+        let bigRowCount = gameSettings.map.width * Math.round(gameSettings.map.hieght / 2);
+        let smallRowCount =  (gameSettings.map.width - 1) * Math.floor(gameSettings.map.hieght / 2);
+        let totalCount = bigRowCount + smallRowCount; 
 
-                let curPadding = row % 2 == 0 ? additionalPadding : 0;
-
-                let x = horizontalPadding + (column - 1) * (gameSettings.size.spriteWidth ) + curPadding;
-                let y = verticalPadding + (row - 1) * (gameSettings.size.spriteHieght / 2 );
-
-                let position = (row - 1) * gameSettings.map.width + column - 1;
-
-                engine.entities.add(this.createMapElement(x, y, position));
-            }
+        for (let num = 1; num <= totalCount; num++){
+                engine.entities.add(this.createMapElement(num));
         }
+
         engine.removeSystem(this);
-
-
-        engine.addSystem(new InputTestSystem());
     }
 
 
-    private createMapElement(x: number, y: number, position: number): Entity{
-        let renderable = this.createRenderable(AssetsConsts.mapElementSprite2, `mapElement${x},${y}`, x, y);
-        let input = new InputComponent(new PointerDownInputTrigger());
-        return new Entity(Guid.newGuid(), renderable, input);
+    private createMapElement(position: number): Entity{
+        let element = new MapElementComponent(position);
+        //let input = new InputComponent(new PointerDownInputTrigger());
+        //let renderable = new RenderableComponent(Renderable.define((factory) => factory.sprite( { name: name, texture: AssetsConsts.mapElementSprite2, position: {x: 0, y: 0}} )));
+        return new Entity(Guid.newGuid(), element);
     }
 
     private createPlayer(x: number, y: number, position: number): Entity{

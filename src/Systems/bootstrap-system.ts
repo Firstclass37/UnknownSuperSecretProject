@@ -1,7 +1,8 @@
 import { ISystem, IEngine, IInitializableEvent, Entity } from "adane-ecs";
 import { Task } from "adane-ecs-tasks";
-import { LoadAssetTask } from "adane-ecs-graphics-ext"
+import { LoadAssetTask } from "adane-ecs-graphics-ext";
 import { MapBuildSystem } from "./map-build-system";
+import { MapRenderSystem } from "./map-render-system";
 import { AssetsConsts } from '../assets-consts';
 import { AssetBatchComponent } from "adane-ecs-graphics"
 import { Asset } from "adane-ecs-graphics/lib/components/asset-batch-component";
@@ -23,10 +24,11 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
     }
 
     goNext(engine: IEngine){
-        engine.addSystem(new MapBuildSystem());
-
         let assets = engine.entities.findOne(AssetBatchComponent).get(AssetBatchComponent).assets;
         engine.entities.add(new Entity(Guid.newGuid(), new SettingsComponent(this.getGameSetting(assets), this.getMapSetting(assets))));
+
+        engine.addSystem(new MapBuildSystem());
+        engine.addSystem(new MapRenderSystem());
     }
 
     private getGameSetting(assets: Asset[]): GameSettings{

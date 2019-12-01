@@ -111,7 +111,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
     private createMapElementEntities(num: number): Entity {
         return new Entity(
             Guid.newGuid(), 
-            new MapElementComponent(),
+            //new MapElementComponent(),
             new DestructionComponent(),
             new RenderComponent());
     }

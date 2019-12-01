@@ -7,7 +7,8 @@ export class GameSettings{
     };
     public map: {
         width: number,
-        hieght: number
+        hieght: number,
+        even: boolean
     };
     
 }
