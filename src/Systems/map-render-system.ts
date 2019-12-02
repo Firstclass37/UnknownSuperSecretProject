@@ -1,5 +1,5 @@
 import { ISystem, IEngine, Entity } from "adane-ecs"
-import { RenderableComponent, Renderable } from "adane-ecs-graphics"
+import { RenderableComponent, Renderable, SpriteObject } from "adane-ecs-graphics"
 import { AssetsConsts } from "../assets-consts";
 import { SettingsComponent } from "../Components/settings-componen";
 import { MapElementComponent } from "../Components/map-element-component";
@@ -53,13 +53,9 @@ export class MapRenderSystem implements ISystem{
     }
     
     private apply(entity: Entity, x: number, y: number){
-            let renderable = entity.get(RenderableComponent);
-            if (!renderable){
-                entity.add(this.createRenderable(AssetsConsts.mapElementSprite2, `mapElement${x},${y}`, x, y));
-                entity.add(new AbsolutePositionComponent(x, y));
-                entity.add(new InputComponent(new PointerDownInputTrigger()));
-            }
-           
+            entity.add(this.createRenderable(AssetsConsts.mapElementSprite2, `mapElement${x},${y}`, x, y));
+            entity.add(new AbsolutePositionComponent(x, y));
+            entity.add(new InputComponent(new PointerDownInputTrigger()));
     }
 
     private checkUpdate(engine: IEngine, entities: Entity[]){
@@ -67,12 +63,10 @@ export class MapRenderSystem implements ISystem{
             let entity = entities[i];
 
             if (entity.has(ChangeSpriteComponent.name)){
-                let asset = entity.get(ChangeSpriteComponent).asset;
-                if (asset){
-                    let position = entity.get(AbsolutePositionComponent);
-
-                    entity.remove(RenderableComponent.name);
-                    entity.add(this.createRenderable(asset, `mapElement${position.x},${position.y}`, position.x, position.y));
+                let asset = entity.get(ChangeSpriteComponent);
+                if (asset.asset){
+                    entity.get(RenderableComponent).renderable.set(SpriteObject, ".", (p) => { p.texture = asset.asset })
+                    asset.asset = null;
                 }
             }
         }

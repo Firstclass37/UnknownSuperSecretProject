@@ -3,10 +3,12 @@ import { RenderableComponent, Renderable } from "adane-ecs-graphics"
 import { Guid } from "adane-system";
 import { AssetsConsts } from "../assets-consts";
 import { SettingsComponent } from "../Components/settings-componen";
-import { InputComponent, PointerDownInputTrigger } from "adane-ecs-input";
 import { MapElementComponent } from "../Components/map-element-component";
 import { ChangeSpriteComponent } from "../Components/change-sprite-component"
-import { SelectComponent } from "../Components/select-component";;
+import { MapPositionComponent} from "../Components/map-position-component"
+import { SelectComponent } from "../Components/select-component";
+import { PlayerComponent } from "../Components/player-component";
+
 
 export class MapBuildSystem implements ISystem {
 
@@ -23,6 +25,9 @@ export class MapBuildSystem implements ISystem {
 
         for (let num = 1; num <= totalCount; num++){
                 engine.entities.add(this.createMapElement(num));
+                if (mapSettings.player == num){
+                    engine.entities.add(this.createPlayer(num));
+                }
         }
 
         engine.removeSystem(this);
@@ -31,14 +36,11 @@ export class MapBuildSystem implements ISystem {
 
     private createMapElement(position: number): Entity{
         let element = new MapElementComponent(position);
-        //let input = new InputComponent(new PointerDownInputTrigger());
-        //let renderable = new RenderableComponent(Renderable.define((factory) => factory.sprite( { name: name, texture: AssetsConsts.mapElementSprite2, position: {x: 0, y: 0}} )));
         return new Entity(Guid.newGuid(), element, new ChangeSpriteComponent(), new SelectComponent());
     }
 
-    private createPlayer(x: number, y: number, position: number): Entity{
-        let renderable = this.createRenderable(AssetsConsts.playerSprite, `player`, x, y);
-        return new Entity(Guid.newGuid(), renderable);
+    private createPlayer(position: number): Entity{
+        return new Entity(Guid.newGuid(), new MapPositionComponent(position), new PlayerComponent());
     }
 
     private createTower(x: number, y: number, position: number): Entity{

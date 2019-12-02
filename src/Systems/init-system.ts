@@ -77,7 +77,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
             new RenderComponent(),
             new CrystalComponent(),
             new NameComponent(),
-            new MapPositionComponent(),
+            //new MapPositionComponent(),
             new DescriptionComponent(),
             new DestructionComponent());
     }
@@ -91,7 +91,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
             new DurationComponent(), 
             new NameComponent(), 
             new DescriptionComponent(),
-            new MapPositionComponent(),
+            //new MapPositionComponent(),
             new RenderComponent());
     }
 
@@ -101,7 +101,7 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
             new PlayerComponent(),
             new PlayerStatsComponent(),
             new NameComponent(),
-            new MapPositionComponent(),
+            //new MapPositionComponent(),
             new RenderComponent());
     }
 
