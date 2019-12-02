@@ -5,13 +5,23 @@ import { SettingsComponent } from "../Components/settings-componen";
 import { MapElementComponent } from "../Components/map-element-component";
 import { InputComponent, PointerDownInputTrigger } from "adane-ecs-input";
 import { ChangeSpriteComponent } from "../Components/change-sprite-component"
+import { AbsolutePositionComponent } from "../Components/absolute-position-component";
 
 export class MapRenderSystem implements ISystem{
 
     update(engine: IEngine): void {
 
         let elements = engine.entities.findMany(MapElementComponent).sort(e => e.get(MapElementComponent).num);
-
+        if (!elements[0].get(RenderableComponent)){
+            this.init(engine, elements);
+        }
+        else{
+            this.checkUpdate(engine, elements);
+        }
+        
+    }
+    
+    private init(engine: IEngine, entities: Entity[]): void{
         let settings = engine.entities.findOne(SettingsComponent).get(SettingsComponent);
         let gameSettings = settings.gameSettings;
 
@@ -21,7 +31,7 @@ export class MapRenderSystem implements ISystem{
         let even = settings.gameSettings.map.even;
         let width = settings.gameSettings.map.width;
 
-        for(let i = 0; i < elements.length; i++){
+        for (let i = 0; i < entities.length; i++){
             
             let tempWidth = 2 * width - 1
             let bigRowCount = Math.floor((i) / tempWidth);
@@ -38,7 +48,7 @@ export class MapRenderSystem implements ISystem{
                 x += additionalPadding;
             }
 
-            this.apply(elements[i], x, y);
+            this.apply(entities[i], x, y);
         }
     }
     
@@ -46,15 +56,26 @@ export class MapRenderSystem implements ISystem{
             let renderable = entity.get(RenderableComponent);
             if (!renderable){
                 entity.add(this.createRenderable(AssetsConsts.mapElementSprite2, `mapElement${x},${y}`, x, y));
+                entity.add(new AbsolutePositionComponent(x, y));
                 entity.add(new InputComponent(new PointerDownInputTrigger()));
             }
+           
+    }
+
+    private checkUpdate(engine: IEngine, entities: Entity[]){
+        for (let i = 0; i < entities.length; i++){
+            let entity = entities[i];
+
             if (entity.has(ChangeSpriteComponent.name)){
                 let asset = entity.get(ChangeSpriteComponent).asset;
                 if (asset){
+                    let position = entity.get(AbsolutePositionComponent);
+
                     entity.remove(RenderableComponent.name);
-                    entity.add(this.createRenderable(asset, `mapElement${x},${y}`, x, y));
+                    entity.add(this.createRenderable(asset, `mapElement${position.x},${position.y}`, position.x, position.y));
                 }
             }
+        }
     }
 
     private createRenderable(asset: string, name: string, xPos: number, yPos: number): RenderableComponent{
