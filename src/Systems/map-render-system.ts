@@ -1,8 +1,10 @@
-import { ISystem, IEngine } from "adane-ecs"
+import { ISystem, IEngine, Entity } from "adane-ecs"
 import { RenderableComponent, Renderable } from "adane-ecs-graphics"
 import { AssetsConsts } from "../assets-consts";
 import { SettingsComponent } from "../Components/settings-componen";
 import { MapElementComponent } from "../Components/map-element-component";
+import { InputComponent, PointerDownInputTrigger } from "adane-ecs-input";
+import { ChangeSpriteComponent } from "../Components/change-sprite-component"
 
 export class MapRenderSystem implements ISystem{
 
@@ -20,13 +22,7 @@ export class MapRenderSystem implements ISystem{
         let width = settings.gameSettings.map.width;
 
         for(let i = 0; i < elements.length; i++){
-            let curEntity = elements[i];
-
-            let renderable = curEntity.get(RenderableComponent);
-            if (renderable){
-                break;
-            }
-
+            
             let tempWidth = 2 * width - 1
             let bigRowCount = Math.floor((i) / tempWidth);
 
@@ -42,10 +38,25 @@ export class MapRenderSystem implements ISystem{
                 x += additionalPadding;
             }
 
-            curEntity.add(this.createRenderable(AssetsConsts.mapElementSprite2, `mapElement${x},${y}`, x, y));
+            this.apply(elements[i], x, y);
         }
     }
     
+    private apply(entity: Entity, x: number, y: number){
+            let renderable = entity.get(RenderableComponent);
+            if (!renderable){
+                entity.add(this.createRenderable(AssetsConsts.mapElementSprite2, `mapElement${x},${y}`, x, y));
+                entity.add(new InputComponent(new PointerDownInputTrigger()));
+            }
+            if (entity.has(ChangeSpriteComponent.name)){
+                let asset = entity.get(ChangeSpriteComponent).asset;
+                if (asset){
+                    entity.remove(RenderableComponent.name);
+                    entity.add(this.createRenderable(asset, `mapElement${x},${y}`, x, y));
+                }
+            }
+    }
+
     private createRenderable(asset: string, name: string, xPos: number, yPos: number): RenderableComponent{
         return new RenderableComponent(Renderable.define((factory) => factory.sprite( { name: name, texture: asset, position: {x: xPos, y: yPos}} )));
     }

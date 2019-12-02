@@ -10,6 +10,7 @@ import { GameSettings } from "../game-settings";
 import { MapSetting } from "../map-settings";
 import { Guid } from "adane-system";
 import { SettingsComponent } from "../Components/settings-componen";
+import { SelectMapElementSystem } from "./select-map-elem-system";
 
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
@@ -29,6 +30,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
 
         engine.addSystem(new MapBuildSystem());
         engine.addSystem(new MapRenderSystem());
+        engine.addSystem(new SelectMapElementSystem());
     }
 
     private getGameSetting(assets: Asset[]): GameSettings{
@@ -48,6 +50,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
             AssetsConsts.shieldSprite,
             AssetsConsts.towerSprite,
             AssetsConsts.mapElementSprite2,
+            AssetsConsts.mapElementSelectedSprite,
 
             AssetsConsts.gameSettings,
             AssetsConsts.mapSettings,

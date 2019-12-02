@@ -5,6 +5,8 @@ import { AssetsConsts } from "../assets-consts";
 import { SettingsComponent } from "../Components/settings-componen";
 import { InputComponent, PointerDownInputTrigger } from "adane-ecs-input";
 import { MapElementComponent } from "../Components/map-element-component";
+import { ChangeSpriteComponent } from "../Components/change-sprite-component"
+import { SelectComponent } from "../Components/select-component";;
 
 export class MapBuildSystem implements ISystem {
 
@@ -31,7 +33,7 @@ export class MapBuildSystem implements ISystem {
         let element = new MapElementComponent(position);
         //let input = new InputComponent(new PointerDownInputTrigger());
         //let renderable = new RenderableComponent(Renderable.define((factory) => factory.sprite( { name: name, texture: AssetsConsts.mapElementSprite2, position: {x: 0, y: 0}} )));
-        return new Entity(Guid.newGuid(), element);
+        return new Entity(Guid.newGuid(), element, new ChangeSpriteComponent(), new SelectComponent());
     }
 
     private createPlayer(x: number, y: number, position: number): Entity{

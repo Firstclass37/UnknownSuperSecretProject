@@ -20,8 +20,6 @@ import { CrystalComponent } from "../Components/crystal-component";
 import { CrystalDestructionSystem } from "./crystal-destruction-system";
 import { InteractionSystem } from "./interaction-system";
 import { InteractionComponent } from "../Components/interaction-component";
-import { InputComponent } from "../Components/input-component";
-import { InputSystem } from "./input-system";
 import { MapElementDestructionSystem } from "./map-element-destruction-system";
 import { MovementSystem } from "./movement-system";
 import { PlayerMoveComponent } from "../Components/player-move-component";
@@ -70,7 +68,6 @@ export class InitSystem implements ISystem, IInitializableEvent, IDisposableEven
 
         engine.entities.add(new Entity(Guid.newGuid(), new CrystalQuestComponent()));
         engine.entities.add(new Entity(Guid.newGuid(), new InteractionComponent()));
-        engine.entities.add(new Entity(Guid.newGuid(), new InputComponent()));
         engine.entities.add(new Entity(Guid.newGuid(), new PlayerMoveComponent()));
     }
 
