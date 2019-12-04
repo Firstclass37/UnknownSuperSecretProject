@@ -19,7 +19,7 @@ export class SelectMapElementSystem implements ISystem{
 
                 selectComp.double = selectComp.once;
                 if (!selectComp.once){
-                    selectComp.once;
+                    selectComp.once = true;;
                     curEntity.get(ChangeSpriteComponent).asset = AssetsConsts.mapElementSelectedSprite;
                 }
 

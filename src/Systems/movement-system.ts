@@ -1,5 +1,4 @@
 import { ISystem, IEngine } from "adane-ecs"
-import { InteractionComponent } from "../Components/interaction-component";
 import { MapElementComponent } from "../Components/map-element-component";
 import { PlayerMoveComponent } from "../Components/player-move-component";
 import { PlayerComponent } from "../Components/player-component";
@@ -7,23 +6,22 @@ import { MapPositionComponent } from "../Components/map-position-component";
 import { SquareGScoreStrategy } from "../Implementations/Square/square-g-score-strategy";
 import { FScoreStrategy } from "../Implementations/f-score-strategy";
 import { IndexedMap } from "../Implementations/indexed-map";
-import { SquareNieghborsSearchStrategy } from "../Implementations/Square/square-nieghbors-search-strategy";
 import { PathSearcher } from "../aStar/path-searcher";
 import { DestructionComponent } from "../Components/destruction-component";
 import { RhombusNieghborsSearchStrategy } from "../Implementations/Rhombus/rhombus-nieghbors-search-strategy";
+import { SelectComponent } from "../Components/select-component";
 
 export class MovementSystem implements ISystem {
     update(engine: IEngine): void {
-        let interacted = engine.entities.findOne(InteractionComponent).get<InteractionComponent>(InteractionComponent.name);
-        if (interacted){
-            let entity = engine.entities.get(interacted.lastInteractedWithId);
-            if (entity.has(MapElementComponent.name)) {
-                let targetPosition = entity.get<MapElementComponent>(MapElementComponent.name);
-                let currentPlayerPosition = engine.entities.findOne(PlayerComponent).get<MapPositionComponent>(MapPositionComponent.name);
-                
-                let movement = engine.entities.findOne(PlayerMoveComponent).get<PlayerMoveComponent>(PlayerMoveComponent.name);
-                movement.path = this.buildPath(currentPlayerPosition.mapElementNumber, targetPosition.num, engine);
-            }
+        let interacted = engine.entities.findMany(MapElementComponent, SelectComponent).filter(e => e.get(SelectComponent).once);
+        if (interacted && interacted.length > 0){
+            let entity = interacted[0];
+            
+            let targetPosition = entity.get<MapElementComponent>(MapElementComponent).num;
+            let currentPlayerPosition = engine.entities.findOne(PlayerComponent).get<MapPositionComponent>(MapPositionComponent).mapElementNumber;
+            
+            let movement = engine.entities.findOne(PlayerMoveComponent).get<PlayerMoveComponent>(PlayerMoveComponent);
+            movement.path = this.buildPath(currentPlayerPosition, targetPosition, engine);
         }
     }
 
@@ -46,7 +44,7 @@ export class MovementSystem implements ISystem {
             let mapElement = mapElements[i].get<MapElementComponent>(MapElementComponent.name);
             map[mapElement.num] = {
                 speed: 1,
-                isBlocked: mapElements[i].get<DestructionComponent>(DestructionComponent.name).needDestruct
+                isBlocked: false
             };;
         }
         return new IndexedMap(map);

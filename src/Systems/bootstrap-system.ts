@@ -12,6 +12,8 @@ import { Guid } from "adane-system";
 import { SettingsComponent } from "../Components/settings-componen";
 import { SelectMapElementSystem } from "./select-map-elem-system";
 import { PlayerRenderSystem  } from "./player-render-system";
+import { MovementSystem } from "./movement-system";
+import { ShowMovementPathSystem } from "./show-movement-path-system";
 
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
@@ -33,6 +35,9 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new MapRenderSystem());
         engine.addSystem(new SelectMapElementSystem());
         engine.addSystem(new PlayerRenderSystem());
+        engine.addSystem(new MovementSystem());
+        engine.addSystem(new ShowMovementPathSystem());
+
     }
 
     private getGameSetting(assets: Asset[]): GameSettings{
