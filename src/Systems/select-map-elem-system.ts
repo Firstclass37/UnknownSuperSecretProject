@@ -13,25 +13,44 @@ export class SelectMapElementSystem implements ISystem{
         let entities = engine.entities.findMany(InputComponent, MapElementComponent);
 
         for(let i = 0; i < entities.length; i++){
-            let curEnity = entities[i];
-            if (curEnity.get(InputComponent).hit){
-                let selectComp = curEnity.get(SelectComponent);
-                if (selectComp.once){
-                    selectComp.double = true;
-                }
+            let curEntity = entities[i];
+            if (curEntity.get(InputComponent).hit){
+                let selectComp = curEntity.get(SelectComponent);
+
+                selectComp.double = selectComp.once;
                 if (!selectComp.once){
                     selectComp.once;
-                    curEnity.get(ChangeSpriteComponent).asset = AssetsConsts.mapElementSelectedSprite;
+                    curEntity.get(ChangeSpriteComponent).asset = AssetsConsts.mapElementSelectedSprite;
                 }
+
+                this.clearOther(entities, curEntity);
+                break;
             }
         }
 
-        entities.forEach(e => {
-            let input = e.get(InputComponent);
-            if (input.hit){
-                console.log(`hit!!!!! ${e.identity}`);
+        this.loggingHits(entities);
+    }
+
+    private clearOther(entities: Entity[], exclude: Entity): void{
+        for(let i = 0; i < entities.length; i++){
+            let curEntity = entities[i];
+            if (curEntity != exclude){
+                let selectComp = curEntity.get(SelectComponent);
+                selectComp.once = false;
+                selectComp.double = false;
+                curEntity.get(ChangeSpriteComponent).asset = AssetsConsts.mapElementSprite2;
             }
-        });
+        }
+    }
+
+    private loggingHits(entities: Entity[]): void{
+        entities
+            .forEach(e => {
+                let input = e.get(InputComponent);
+                if (input.hit){
+                    console.log(`hit!!!!! ${e.identity}`);
+                }
+            });
     }
 
 }
