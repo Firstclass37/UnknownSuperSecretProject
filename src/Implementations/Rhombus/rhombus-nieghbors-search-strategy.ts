@@ -17,20 +17,22 @@ export class RhombusNieghborsSearchStrategy implements INieighborsSearchStrategy
     getNieghbors(index: number): IMapElement[]{
         let nieghbors: number[] = [];
 
+        let fullRowWidth = 2 * this.map.width - 1;
+
         let hasLeft = this.even 
-            ? (index + this.map.width - 1) % (2 * this.map.width - 1) == 0 
-            : index % (2 * this.map.width - 1) == 0;
+            ? (index + this.map.width) % fullRowWidth != 0 
+            : index != 0 && index % fullRowWidth != 0;
         let hasRight = this.even 
-            ? index % (2 * this.map.width - 1) == 0 
-            : (index - this.map.width + 1) % (2 * this.map.width - 1) == 0;
+            ? (index + 1) % fullRowWidth != 0 
+            : index != this.map.width - 1 && (index - this.map.width + 1) % fullRowWidth != 0;
 
         if (hasLeft){
             nieghbors.push(index - this.map.width);
             nieghbors.push(index + this.map.width - 1);
         }
         if (hasRight){
-            nieghbors.push(index + this.map.width - 1);
-            nieghbors.push(index + this.map.width );    
+            nieghbors.push(index - this.map.width + 1);
+            nieghbors.push(index + this.map.width);    
         }
         
         if (this.diagonalAvailable)

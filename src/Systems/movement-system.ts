@@ -10,6 +10,7 @@ import { PathSearcher } from "../aStar/path-searcher";
 import { DestructionComponent } from "../Components/destruction-component";
 import { RhombusNieghborsSearchStrategy } from "../Implementations/Rhombus/rhombus-nieghbors-search-strategy";
 import { SelectComponent } from "../Components/select-component";
+import { SettingsComponent } from "../Components/settings-componen";
 
 export class MovementSystem implements ISystem {
     update(engine: IEngine): void {
@@ -26,7 +27,9 @@ export class MovementSystem implements ISystem {
     }
 
     private buildPath(start: number, end: number, engine: IEngine): number[] {
-        let indexedMap = this.createIndexedMap(engine);
+        let gameSettings = engine.entities.findOne(SettingsComponent).get(SettingsComponent);
+
+        let indexedMap = this.createIndexedMap(engine, gameSettings.gameSettings.map.width);
         let settings = {
             gScoreStrategy: new SquareGScoreStrategy(),
             fScoreStrategy: new FScoreStrategy(indexedMap),
@@ -37,7 +40,7 @@ export class MovementSystem implements ISystem {
         return path.map(e => indexedMap.getIndex(e));
     }
 
-    private createIndexedMap(engine: IEngine): IndexedMap {
+    private createIndexedMap(engine: IEngine, mapWidth: number): IndexedMap {
         let mapElements = engine.entities.findMany(MapElementComponent);
         let map: any = [];
         for(let i = 0; i < mapElements.length; i++){
@@ -47,6 +50,6 @@ export class MovementSystem implements ISystem {
                 isBlocked: false
             };;
         }
-        return new IndexedMap(map);
+        return new IndexedMap(map, mapWidth);
     }
 }
