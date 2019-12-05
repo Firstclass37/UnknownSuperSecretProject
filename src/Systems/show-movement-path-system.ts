@@ -18,8 +18,10 @@ export class ShowMovementPathSystem implements ISystem{
         for(let i = 0; i < mapElements.length; i++){
             let curEntity = mapElements[i];
 
-            curEntity.get(SelectComponent).once = true;
-            curEntity.get(ChangeSpriteComponent).asset = AssetsConsts.mapElementSelectedSprite;
+            if (!curEntity.get(SelectComponent).once){
+                curEntity.get(SelectComponent).once = true;
+                curEntity.get(ChangeSpriteComponent).asset = AssetsConsts.mapElementSelectedSprite;
+            }
         }
     }
 
