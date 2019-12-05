@@ -13,7 +13,7 @@ export class PathSearcher<T> implements IPathSearcher<T>{
         let fScore = new Map<T, number>();
         fScore.set(start, setting.fScoreStrategy.get(start, end, 0));
 
-        while(open.length > 0){
+        while(open.length > 0) {
             let current = this.selectMin(fScore);
             if (current == end){
                 return this.buildPath(pathMap, end);
@@ -55,13 +55,21 @@ export class PathSearcher<T> implements IPathSearcher<T>{
     }
 
     buildPath<T>(pathMap: Map<T, T>, end: T): T[]{
-        let path: T[] = [ end ];
+        let path: T[] = [];
         
         let keys = Array.from(pathMap.keys()).reverse();
         
-        for(let i = 0; i < keys.length; i++){
-            path.push(pathMap.get(keys[i]));
-            path.push(keys[i]);
+        let last: T = end;
+        for(let i = keys.length - 1; i >= 0; i--){
+            let currKey = keys[i];
+            let currVal = pathMap.get(currKey);
+
+            if (last == currKey){
+                last = currKey;
+
+                path.push(currVal);
+                path.push(currKey);
+            }
         }
         return path.reverse();
     }
