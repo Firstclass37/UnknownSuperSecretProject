@@ -6,8 +6,8 @@
         "spriteHieght": 32
     },
     "map": {
-        "width": 10,
-        "hieght": 17,
+        "width": 4,
+        "hieght": 5,
         "even": true
     }
 }

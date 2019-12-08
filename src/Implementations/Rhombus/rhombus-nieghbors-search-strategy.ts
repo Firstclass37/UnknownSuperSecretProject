@@ -19,12 +19,14 @@ export class RhombusNieghborsSearchStrategy implements INieighborsSearchStrategy
 
         let fullRowWidth = 2 * this.map.width - 1;
 
+        let posIndex = index - 1;
+
         let hasLeft = this.even 
-            ? (index + this.map.width) % fullRowWidth != 0 
-            : index != 0 && index % fullRowWidth != 0;
+            ? (posIndex + this.map.width) % fullRowWidth != 0 
+            : posIndex != 0 && (posIndex >= fullRowWidth ? posIndex % fullRowWidth != 0 : true);
         let hasRight = this.even 
-            ? (index + 1) % fullRowWidth != 0 
-            : index != this.map.width - 1 && (index - this.map.width + 1) % fullRowWidth != 0;
+            ? (posIndex + 1) % fullRowWidth != 0 
+            : posIndex != this.map.width && (posIndex - this.map.width + 1 >= fullRowWidth ? (posIndex - this.map.width + 1) % fullRowWidth != 0 : true);
 
         if (hasLeft){
             nieghbors.push(index - this.map.width);
@@ -48,7 +50,7 @@ export class RhombusNieghborsSearchStrategy implements INieighborsSearchStrategy
         }
 
         return nieghbors
-            .filter(e => e >= 0 && e < this.map.map.length)
+            .filter(e => e > 0 && e < this.map.map.length)
             .map(e => this.map.getElement(e));
         
     }   

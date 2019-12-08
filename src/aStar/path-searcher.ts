@@ -55,20 +55,19 @@ export class PathSearcher<T> implements IPathSearcher<T>{
     }
 
     buildPath<T>(pathMap: Map<T, T>, end: T): T[]{
-        let path: T[] = [];
+        let path: T[] = [ end ];
         
         let keys = Array.from(pathMap.keys()).reverse();
         
         let last: T = end;
-        for(let i = keys.length - 1; i >= 0; i--){
+        for(let i = 0; i < keys.length; i++){
             let currKey = keys[i];
             let currVal = pathMap.get(currKey);
 
              if (last == currKey){
-                 last = currKey;
 
+                last = currVal;
                 path.push(currVal);
-                path.push(currKey);
             }
         }
         return path.reverse();
