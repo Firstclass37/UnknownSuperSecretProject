@@ -64,8 +64,8 @@ export class PathSearcher<T> implements IPathSearcher<T>{
             let currKey = keys[i];
             let currVal = pathMap.get(currKey);
 
-            if (last == currKey){
-                last = currKey;
+             if (last == currKey){
+                 last = currKey;
 
                 path.push(currVal);
                 path.push(currKey);

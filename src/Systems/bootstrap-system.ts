@@ -33,10 +33,10 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
 
         engine.addSystem(new MapBuildSystem());
         engine.addSystem(new MapRenderSystem());
-        engine.addSystem(new SelectMapElementSystem());
+        //engine.addSystem(new SelectMapElementSystem());
         engine.addSystem(new PlayerRenderSystem());
         engine.addSystem(new MovementSystem());
-        engine.addSystem(new ShowMovementPathSystem());
+        //engine.addSystem(new ShowMovementPathSystem());
 
     }
 
