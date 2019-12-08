@@ -9,6 +9,7 @@ import { MapPositionComponent} from "../Components/map-position-component"
 import { SelectComponent } from "../Components/select-component";
 import { PlayerComponent } from "../Components/player-component";
 import { PlayerMoveComponent } from "../Components/player-move-component";
+import { ChangePositionComponent } from "../Components/change-position-component";
 
 
 export class MapBuildSystem implements ISystem {
@@ -41,7 +42,7 @@ export class MapBuildSystem implements ISystem {
     }
 
     private createPlayer(position: number): Entity{
-        return new Entity(Guid.newGuid(), new MapPositionComponent(position), new PlayerComponent(), new PlayerMoveComponent());
+        return new Entity(Guid.newGuid(), new MapPositionComponent(position), new PlayerComponent(), new PlayerMoveComponent(), new ChangePositionComponent());
     }
 
     private createTower(x: number, y: number, position: number): Entity{

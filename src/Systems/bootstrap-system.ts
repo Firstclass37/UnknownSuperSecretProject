@@ -14,6 +14,9 @@ import { SelectMapElementSystem } from "./select-map-elem-system";
 import { PlayerRenderSystem  } from "./player-render-system";
 import { MovementSystem } from "./movement-system";
 import { ShowMovementPathSystem } from "./show-movement-path-system";
+import { MoveSystem } from "./move-system";
+import { ChangePositionSystem } from "./change-position-system";
+
 
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
@@ -36,6 +39,9 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         //engine.addSystem(new SelectMapElementSystem());
         engine.addSystem(new PlayerRenderSystem());
         engine.addSystem(new MovementSystem());
+        engine.addSystem(new MoveSystem());
+        engine.addSystem(new MovementSystem());
+        engine.addSystem(new ChangePositionSystem());
         //engine.addSystem(new ShowMovementPathSystem());
 
     }

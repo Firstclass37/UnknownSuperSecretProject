@@ -65,7 +65,8 @@ export class MapRenderSystem implements ISystem{
             if (entity.has(ChangeSpriteComponent.name)){
                 let asset = entity.get(ChangeSpriteComponent);
                 if (asset.asset){
-                    entity.get(RenderableComponent).renderable.set(SpriteObject, ".", (p) => { p.texture = asset.asset })
+                    let renderable = entity.get(RenderableComponent).renderable;
+                    renderable.set(SpriteObject, ".", (p) => { p.texture = asset.asset })
                     asset.asset = null;
                 }
             }
