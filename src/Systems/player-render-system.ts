@@ -35,7 +35,10 @@ export class PlayerRenderSystem implements ISystem{
     }
 
     private checkUpdate(player: Entity): void{
+        //let position = player.get(AbsolutePositionComponent);
 
+        //player.remove(RenderableComponent.name);
+        //player.add(this.createRenderable(AssetsConsts.playerSprite, `player${position.x}${position.y}`, position.x, position.y));
     }
 
     private createRenderable(asset: string, name: string, xPos: number, yPos: number): RenderableComponent{

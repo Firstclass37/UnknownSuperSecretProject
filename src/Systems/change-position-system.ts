@@ -4,8 +4,8 @@ import { ChangePositionComponent } from "../Components/change-position-component
 import { MapElementComponent } from "../Components/map-element-component";
 import { AbsolutePositionComponent } from "../Components/absolute-position-component";
 import { RenderableComponent, SpriteObject } from "adane-ecs-graphics"
-import { Point } from "pixi.js";
 import { MapPositionComponent } from "../Components/map-position-component";
+import { AssetsConsts } from "../assets-consts";
 
 export class ChangePositionSystem implements ISystem{
 
@@ -31,23 +31,30 @@ export class ChangePositionSystem implements ISystem{
         let vectorX = targetPos.x - fromPos.x;
         let vectorY = targetPos.y - fromPos.y;
 
-        let stepX = vectorX;
-        let stepY = vectorY;
-        let nextX = playerPos.x + stepX;
-        let nextY = playerPos.y + stepY;
+        let stepX = vectorX * 0.1;
+        let stepY = vectorY * 0.1;
 
-        playerPos.x = nextX > targetPos.x ? targetPos.x : nextX;
-        playerPos.y = nextY > targetPos.y ? targetPos.y : nextY;
+        let targetPlayerPosX = targetPos.x + 15;
+        let targetPlayerPosY = targetPos.y - 12
+
+        let nextPosX = playerPos.x + stepX;
+        let nextPosY = playerPos.y + stepY;
+
+        playerPos.x = Math.abs(stepX) < Math.abs(nextPosX - targetPlayerPosX) ?  nextPosX : targetPlayerPosX;
+        playerPos.y = Math.abs(stepY) < Math.abs(nextPosY - targetPlayerPosY) ?  nextPosY : targetPlayerPosY;
         
         this.changeCoord(player, playerPos.x, playerPos.y);
 
-        return playerPos.x == targetPos.x && playerPos.y == targetPos.y;
+        return playerPos.x == targetPlayerPosX && playerPos.y == targetPlayerPosY;
+    }
+
+    private getLength(vectorX: number, vectorY: number): number{
+        return Math.sqrt(Math.pow(vectorX, 2) + Math.pow(vectorY, 2))
     }
 
     private changeCoord(player: Entity, xPos: number, yPos: number){
         let renderable = player.get(RenderableComponent).renderable;
-        renderable.set(SpriteObject, ".", (o) => { o.position = new Point(xPos, yPos) });    
-        //renderable.set(SpriteObject, ".", (o) => { o.position.x = xPos, o.position.y = yPos });        
+        renderable.set(SpriteObject, ".", (o) => { o.position = { x: xPos, y: yPos} });    
     }
 
 }
