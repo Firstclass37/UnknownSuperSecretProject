@@ -11,7 +11,7 @@ export class PlayerRenderSystem implements ISystem{
 
     update(engine: IEngine): void {
         let player = engine.entities.findOne(PlayerComponent);
-        if (!player.has(RenderableComponent.name) && engine.time.total > 500){
+        if (!player.has(RenderableComponent.name) && engine.time.total > 200){
             this.init(engine, player);
         }else{
             this.checkUpdate(player);

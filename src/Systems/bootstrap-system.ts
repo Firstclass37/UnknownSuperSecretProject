@@ -14,7 +14,7 @@ import { PlayerRenderSystem  } from "./player-render-system";
 import { MovementSystem } from "./movement-system";
 import { MoveSystem } from "./move-system";
 import { ChangePositionSystem } from "./change-position-system";
-
+import { OneLifeMapElementSystem } from "./one-life-map-element-system";
 
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
@@ -35,6 +35,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new MapBuildSystem());
         engine.addSystem(new MapRenderSystem());
         engine.addSystem(new PlayerRenderSystem());
+        engine.addSystem(new OneLifeMapElementSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new MoveSystem());
         engine.addSystem(new MovementSystem());

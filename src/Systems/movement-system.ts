@@ -3,7 +3,6 @@ import { MapElementComponent } from "../Components/map-element-component";
 import { PlayerMoveComponent } from "../Components/player-move-component";
 import { PlayerComponent } from "../Components/player-component";
 import { MapPositionComponent } from "../Components/map-position-component";
-import { SquareGScoreStrategy } from "../Implementations/Square/square-g-score-strategy";
 import { IndexedMap } from "../Implementations/indexed-map";
 import { PathSearcher } from "../aStar/path-searcher";
 import { RhombusNieghborsSearchStrategy } from "../Implementations/Rhombus/rhombus-nieghbors-search-strategy";
@@ -33,7 +32,7 @@ export class MovementSystem implements ISystem {
         if (!playerMoveComponent.path || playerMoveComponent.path.length == 0){
             playerMoveComponent.path = this.buildPath(currentPlayerPosition, targetPosition, engine);
             playerMoveComponent.new = true;
-            //this.show(engine, playerMoveComponent.path, true);
+            this.show(engine, playerMoveComponent.path, true);
         }
     }
 
