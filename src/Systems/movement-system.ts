@@ -33,7 +33,7 @@ export class MovementSystem implements ISystem {
         if (!playerMoveComponent.path || playerMoveComponent.path.length == 0){
             playerMoveComponent.path = this.buildPath(currentPlayerPosition, targetPosition, engine);
             playerMoveComponent.new = true;
-            this.show(engine, playerMoveComponent.path, true);
+            //this.show(engine, playerMoveComponent.path, true);
         }
     }
 
