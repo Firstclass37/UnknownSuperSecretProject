@@ -48,10 +48,6 @@ export class ChangePositionSystem implements ISystem{
         return playerPos.x == targetPlayerPosX && playerPos.y == targetPlayerPosY;
     }
 
-    private getLength(vectorX: number, vectorY: number): number{
-        return Math.sqrt(Math.pow(vectorX, 2) + Math.pow(vectorY, 2))
-    }
-
     private changeCoord(player: Entity, xPos: number, yPos: number){
         let renderable = player.get(RenderableComponent).renderable;
         renderable.set(SpriteObject, ".", (o) => { o.position = { x: xPos, y: yPos} });    
