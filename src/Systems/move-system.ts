@@ -1,5 +1,4 @@
 import { ISystem, IEngine } from "adane-ecs"
-import { MapElementComponent } from "../Components/map-element-component";
 import { PlayerMoveComponent } from "../Components/player-move-component";
 import { PlayerComponent } from "../Components/player-component";
 import { MapPositionComponent } from "../Components/map-position-component";
@@ -19,15 +18,10 @@ export class MoveSystem implements ISystem {
             playerPos.mapElementNumber = changePos.to;
         }
 
-        if (movement.path[movement.path.length - 1] != playerPos.mapElementNumber){
-            if (changePos.complete){
-                changePos.from = playerPos.mapElementNumber;
-                changePos.to = movement.path[movement.path.indexOf(playerPos.mapElementNumber) + 1];
-                changePos.complete = false;
-            }
+        if (movement.path[movement.path.length - 1] != playerPos.mapElementNumber && changePos.complete){
+            changePos.from = playerPos.mapElementNumber;
+            changePos.to = movement.path[movement.path.indexOf(playerPos.mapElementNumber) + 1];
+            changePos.complete = false;
         }     
-        else{
-            movement.path = [];
-        }
     }
 }

@@ -15,6 +15,8 @@ import { HexagonGScoreStrategy } from "../Implementations/Hexagon/hexagon-g-scor
 
 export class MovementSystem implements ISystem {
     update(engine: IEngine): void {
+        this.finishMovement(engine);
+
         let interacted = this.findInput(engine);
         if (!interacted){
             return;
@@ -27,7 +29,7 @@ export class MovementSystem implements ISystem {
         playerMoveComponent.new = false;
         if (playerMoveComponent.path && playerMoveComponent.path.length > 0 && playerMoveComponent.path[playerMoveComponent.path.length - 1] != targetPosition){
             this.show(engine, playerMoveComponent.path, false);
-            playerMoveComponent.path = [];            
+            this.resetMovement(playerMoveComponent);            
         }
         if (!playerMoveComponent.path || playerMoveComponent.path.length == 0){
             playerMoveComponent.path = this.buildPath(currentPlayerPosition, targetPosition, engine);
@@ -62,6 +64,20 @@ export class MovementSystem implements ISystem {
             };
         }
         return new IndexedMap(map, mapWidth);
+    }
+
+    private finishMovement(engine: IEngine): void{
+        let currentPlayerPosition = engine.entities.findOne(PlayerComponent).get<MapPositionComponent>(MapPositionComponent).mapElementNumber;
+        let moveComponent = engine.entities.findOne(PlayerMoveComponent).get<PlayerMoveComponent>(PlayerMoveComponent);
+        if (moveComponent.path && moveComponent.path.length > 0 && moveComponent.path[moveComponent.path.length - 1] == currentPlayerPosition){
+            this.show(engine, moveComponent.path, false);
+            this.resetMovement(moveComponent);
+        }
+    }
+
+    private resetMovement(movement: PlayerMoveComponent): void{
+        movement.new = false;
+        movement.path = [];
     }
 
     private findInput(engine: IEngine): Entity{
