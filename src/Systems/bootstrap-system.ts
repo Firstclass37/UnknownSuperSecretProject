@@ -17,7 +17,6 @@ import { ChangePositionSystem } from "./change-position-system";
 import { OneLifeMapElementSystem } from "./one-life-map-element-system";
 import { ChangeCoordinatesSystem } from "./change-coordinates-system";
 import { MapElementDestructionSystem } from "./map-element-destruction-system";
-import { CrystalDestructionSystem } from "./crystal-destruction-system";
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
 
