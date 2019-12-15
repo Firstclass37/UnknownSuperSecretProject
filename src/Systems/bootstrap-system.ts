@@ -15,7 +15,9 @@ import { MovementSystem } from "./movement-system";
 import { MoveSystem } from "./move-system";
 import { ChangePositionSystem } from "./change-position-system";
 import { OneLifeMapElementSystem } from "./one-life-map-element-system";
-
+import { ChangeCoordinatesSystem } from "./change-coordinates-system";
+import { MapElementDestructionSystem } from "./map-element-destruction-system";
+import { CrystalDestructionSystem } from "./crystal-destruction-system";
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
 
@@ -40,6 +42,8 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new MovementSystem());
         engine.addSystem(new ChangePositionSystem());
         engine.addSystem(new OneLifeMapElementSystem());
+        engine.addSystem(new ChangeCoordinatesSystem());
+        engine.addSystem(new MapElementDestructionSystem());
     }
 
     private getGameSetting(assets: Asset[]): GameSettings{
@@ -60,6 +64,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
             AssetsConsts.towerSprite,
             AssetsConsts.mapElementSprite2,
             AssetsConsts.mapElementSelectedSprite,
+            AssetsConsts.mapElementDestructed,
 
             AssetsConsts.gameSettings,
             AssetsConsts.mapSettings,

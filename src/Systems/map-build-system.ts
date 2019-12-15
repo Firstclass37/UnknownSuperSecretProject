@@ -9,7 +9,9 @@ import { MapPositionComponent} from "../Components/map-position-component"
 import { SelectComponent } from "../Components/select-component";
 import { PlayerComponent } from "../Components/player-component";
 import { PlayerMoveComponent } from "../Components/player-move-component";
-import { ChangePositionComponent } from "../Components/change-position-component";
+import { ChangePositionComponent } from "../Components/change-position-component"; 
+import { ChangeCoordinatesComponent } from "../Components/change-coordinates-component";
+import { DestructionComponent } from "../Components/destruction-component";
 
 
 export class MapBuildSystem implements ISystem {
@@ -37,8 +39,13 @@ export class MapBuildSystem implements ISystem {
 
 
     private createMapElement(position: number): Entity{
-        let element = new MapElementComponent(position);
-        return new Entity(Guid.newGuid(), element, new ChangeSpriteComponent(), new SelectComponent());
+        return new Entity(
+            Guid.newGuid(), 
+            new MapElementComponent(position), 
+            new ChangeSpriteComponent(), 
+            new SelectComponent(), 
+            new DestructionComponent(), 
+            new ChangeCoordinatesComponent());
     }
 
     private createPlayer(position: number): Entity{

@@ -12,6 +12,7 @@ import { ChangeSpriteComponent } from "../Components/change-sprite-component";
 import { AssetsConsts } from "../assets-consts";
 import { RhombusFScoreStrategy } from "../Implementations/Rhombus/rhombus-fscore-strategy";
 import { HexagonGScoreStrategy } from "../Implementations/Hexagon/hexagon-g-score-strategy";
+import { DestructionComponent } from "..//Components/destruction-component";
 
 export class MovementSystem implements ISystem {
     update(engine: IEngine): void {
@@ -28,7 +29,8 @@ export class MovementSystem implements ISystem {
 
         playerMoveComponent.new = false;
         if (playerMoveComponent.path && playerMoveComponent.path.length > 0 && playerMoveComponent.path[playerMoveComponent.path.length - 1] != targetPosition){
-            this.show(engine, playerMoveComponent.path, false);
+            let path = playerMoveComponent.path.splice(playerMoveComponent.path.indexOf(currentPlayerPosition));
+            this.show(engine, path, false);
             this.resetMovement(playerMoveComponent);            
         }
         if (!playerMoveComponent.path || playerMoveComponent.path.length == 0){
@@ -59,7 +61,7 @@ export class MovementSystem implements ISystem {
             let mapElement = mapElements[i].get<MapElementComponent>(MapElementComponent.name);
             map[mapElement.num] = {
                 speed: 1,
-                isBlocked: false,
+                isBlocked: this.isBlocked(mapElements[i]),
                 num: mapElement.num
             };
         }
@@ -70,7 +72,7 @@ export class MovementSystem implements ISystem {
         let currentPlayerPosition = engine.entities.findOne(PlayerComponent).get<MapPositionComponent>(MapPositionComponent).mapElementNumber;
         let moveComponent = engine.entities.findOne(PlayerMoveComponent).get<PlayerMoveComponent>(PlayerMoveComponent);
         if (moveComponent.path && moveComponent.path.length > 0 && moveComponent.path[moveComponent.path.length - 1] == currentPlayerPosition){
-            this.show(engine, moveComponent.path, false);
+            this.show(engine, [ currentPlayerPosition ], false);
             this.resetMovement(moveComponent);
         }
     }
@@ -97,5 +99,9 @@ export class MovementSystem implements ISystem {
         for(let i = 0; i < mapElements.length; i++){
             mapElements[i].get(ChangeSpriteComponent).asset = active ? AssetsConsts.mapElementSelectedSprite : AssetsConsts.mapElementSprite2;
         }
+    }
+
+    private isBlocked(mapElement: Entity): boolean{
+        return mapElement.get(DestructionComponent).needDestruct;
     }
 }

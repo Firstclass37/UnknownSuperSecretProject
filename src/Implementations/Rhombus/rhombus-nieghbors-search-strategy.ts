@@ -11,7 +11,7 @@ export class RhombusNieghborsSearchStrategy implements INieighborsSearchStrategy
 
     search(element: IMapElement): IMapElement[] {
         let elementIndex = this.map.getIndex(element);
-        return this.getNieghbors(elementIndex);
+        return this.getNieghbors(elementIndex).filter(e => !e.isBlocked);
     }
 
     getNieghbors(index: number): IMapElement[]{
