@@ -35,11 +35,11 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new MapBuildSystem());
         engine.addSystem(new MapRenderSystem());
         engine.addSystem(new PlayerRenderSystem());
-        engine.addSystem(new OneLifeMapElementSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new MoveSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new ChangePositionSystem());
+        engine.addSystem(new OneLifeMapElementSystem());
     }
 
     private getGameSetting(assets: Asset[]): GameSettings{

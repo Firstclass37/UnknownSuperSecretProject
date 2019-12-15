@@ -21,6 +21,7 @@ export class MoveSystem implements ISystem {
 
         if (movement.path[movement.path.length - 1] != playerPos.mapElementNumber){
             if (changePos.complete){
+                changePos.from = playerPos.mapElementNumber;
                 changePos.to = movement.path[movement.path.indexOf(playerPos.mapElementNumber) + 1];
                 changePos.complete = false;
             }
@@ -28,14 +29,5 @@ export class MoveSystem implements ISystem {
         else{
             movement.path = [];
         }
-    }
-
-    private moveTo(target: MapElementComponent, engine: IEngine): void{
-        //logic for changing player absolute coordinates
-    }
-
-    private getPlayerPosition(engine: IEngine): number{
-        //calculate current player map element position
-        return 0;
     }
 }
