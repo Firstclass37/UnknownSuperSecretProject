@@ -35,7 +35,7 @@ export class ChangePositionSystem implements ISystem{
         let stepY = vectorY * 0.1;
 
         let targetPlayerPosX = targetPos.x + 15;
-        let targetPlayerPosY = targetPos.y - 12
+        let targetPlayerPosY = targetPos.y - 12;
 
         let nextPosX = playerPos.x + stepX;
         let nextPosY = playerPos.y + stepY;
