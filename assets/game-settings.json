@@ -1,13 +1,13 @@
 {
     "size": {
-        "windowWidth": 800,
-        "windowHieght": 480,
+        "windowWidth": 480,
+        "windowHieght": 800,
         "spriteWidth": 70,
         "spriteHieght": 32
     },
     "map": {
-        "width": 10,
-        "hieght": 17,
+        "width": 30,
+        "hieght": 60,
         "even": true
     }
 }

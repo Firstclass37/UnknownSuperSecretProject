@@ -25,8 +25,7 @@ export class MapRenderSystem implements ISystem{
         let settings = engine.entities.findOne(SettingsComponent).get(SettingsComponent);
         let gameSettings = settings.gameSettings;
 
-        let horizontalPadding = (gameSettings.size.windowWidth - gameSettings.map.width * gameSettings.size.spriteWidth) / 2;
-        let verticalPadding = (gameSettings.size.windowHieght - gameSettings.map.hieght * gameSettings.size.spriteHieght / 2) / 2;
+        let verticalPadding = gameSettings.size.spriteHieght;
         let additionalPadding = gameSettings.size.spriteWidth / 2;
         let even = settings.gameSettings.map.even;
         let width = settings.gameSettings.map.width;
@@ -42,7 +41,7 @@ export class MapRenderSystem implements ISystem{
             let row =  2 * bigRowCount + (pos <= width ? 0 : 1) + 1;
          
 
-            let x = horizontalPadding + (colomn - 1) * (gameSettings.size.spriteWidth );
+            let x = (colomn - 1) * (gameSettings.size.spriteWidth );
             let y = verticalPadding + (row - 1) * (gameSettings.size.spriteHieght / 2 );
             if (even == (row % 2 == 0)){
                 x += additionalPadding;
