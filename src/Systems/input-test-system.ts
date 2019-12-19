@@ -1,5 +1,6 @@
 import { ISystem, IEngine } from "adane-ecs"
-import { InputComponent, PointerDownInputTrigger } from "adane-ecs-input";
+import { InputComponent, PointerDownInputTrigger, KeyboardInputTrigger } from "adane-ecs-input";
+import { TestComponent} from "../Components/test-component";
 
 
 export class InputTestSystem implements ISystem{
@@ -15,6 +16,8 @@ export class InputTestSystem implements ISystem{
                 console.log(`hit!!!!! ${e.identity}`);
             }
         });
+
+        let keyboard = engine.entities.findMany(InputComponent, TestComponent);
     }
 
 }
