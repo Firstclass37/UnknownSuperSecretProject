@@ -8,8 +8,8 @@
         "playerSpriteHieght": 40
     },
     "map": {
-        "width": 30,
-        "hieght": 60,
+        "width": 20,
+        "hieght": 20,
         "even": true
     }
 }
