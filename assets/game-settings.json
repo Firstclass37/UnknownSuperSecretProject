@@ -1,7 +1,7 @@
 {
     "size": {
-        "windowWidth": 480,
-        "windowHieght": 800,
+        "windowWidth": 240,
+        "windowHieght": 400,
         "spriteWidth": 70,
         "spriteHieght": 32
     },

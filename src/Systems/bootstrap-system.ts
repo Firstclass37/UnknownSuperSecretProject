@@ -20,6 +20,7 @@ import { MapElementDestructionSystem } from "./map-element-destruction-system";
 import { InputTestSystem } from "./input-test-system";
 import { InputComponent, PointerDownInputTrigger, KeyboardInputTrigger, Key} from "adane-ecs-input";
 import { TestComponent } from "../Components/test-component";
+import { CameraComponent } from "../Components/camera-component";
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
 
@@ -36,6 +37,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         let assets = engine.entities.findOne(AssetBatchComponent).get(AssetBatchComponent).assets;
         engine.entities.add(new Entity(Guid.newGuid(), new SettingsComponent(this.getGameSetting(assets), this.getMapSetting(assets))));
         engine.entities.add(new Entity(Guid.newGuid(), new TestComponent() ,new InputComponent(new KeyboardInputTrigger(Key.LEFT, Key.LEFT, Key.LEFT))));
+        engine.entities.add(new Entity(Guid.newGuid(), new CameraComponent(240, 400, 0, 0)));
 
         engine.addSystem(new InputTestSystem());
         engine.addSystem(new MapBuildSystem());
