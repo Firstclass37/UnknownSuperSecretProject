@@ -25,8 +25,8 @@ export class MapRenderSystem implements ISystem{
         let settings = engine.entities.findOne(SettingsComponent).get(SettingsComponent);
         let gameSettings = settings.gameSettings;
 
-        let verticalPadding = 40;
-        var horizontalPadding = 40;
+        let verticalPadding = gameSettings.size.spriteWidth;
+        var horizontalPadding = gameSettings.size.spriteWidth;
         let additionalPadding = gameSettings.size.spriteWidth / 2;
         let even = settings.gameSettings.map.even;
         let width = settings.gameSettings.map.width;

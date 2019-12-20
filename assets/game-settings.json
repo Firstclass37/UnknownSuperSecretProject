@@ -3,7 +3,9 @@
         "windowWidth": 240,
         "windowHieght": 400,
         "spriteWidth": 70,
-        "spriteHieght": 32
+        "spriteHieght": 32,
+        "playerSpriteWidth": 40,
+        "playerSpriteHieght": 40
     },
     "map": {
         "width": 30,
