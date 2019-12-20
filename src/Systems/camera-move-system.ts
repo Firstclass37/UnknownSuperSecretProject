@@ -13,46 +13,44 @@ export class CameraMoveSystem implements ISystem{
 
 
     update(engine: IEngine): void {
-        let camera = engine.entities.findOne(CameraComponent).get(CameraComponent);
         let player = engine.entities.findOne(PlayerComponent, AbsolutePositionComponent);
-        let settings = engine.entities.findOne(SettingsComponent).get(SettingsComponent).gameSettings;
-
         if (!player){
             return;
         }
 
+        let camera = engine.entities.findOne(CameraComponent).get(CameraComponent);
+        let settings = engine.entities.findOne(SettingsComponent).get(SettingsComponent).gameSettings;
+
         let playerPos = player.get(AbsolutePositionComponent);
         let mapElementsCoordinates = engine.entities.findMany(MapElementComponent).map(e => e.get(AbsolutePositionComponent));
         let xMin = settings.size.spriteWidth;
-        let xMax = (settings.map.width + 2) * settings.size.spriteWidth;
+        let xMax = camera.width - 2 * settings.size.spriteWidth;
         let yMin = settings.size.spriteWidth;
-        let yMax = (Math.round(settings.map.hieght / 2) + 2) * settings.size.spriteHieght;
+        let yMax = camera.height - 2 * settings.size.spriteWidth;
 
         let offsetX = camera.width / 2 - (playerPos.x + settings.size.spriteWidth / 2);
         let offsetY = camera.height / 2 - (playerPos.y + settings.size.spriteWidth / 2);
 
-        offsetX = offsetX > 20 ? 0 : offsetX;
-        offsetY = offsetY > 20 ? 0 : offsetY;
+        //offsetX = Math.abs(offsetX) < 10 ? 0 : offsetX;
+        //offsetY = Math.abs(offsetY) < 10 ? 0 : offsetY;
 
-        let xMinElem = mapElementsCoordinates.sort(e => e.x)[0].x;
-        let xMaxElem = mapElementsCoordinates.sort(e => e.x)[mapElementsCoordinates.length - 1].x;
-        let yMinElem = mapElementsCoordinates.sort(e => e.y)[0].y;
-        let yMaxElem = mapElementsCoordinates.sort(e => e.y)[mapElementsCoordinates.length - 1].y + offsetY;
+        let xMinElem = mapElementsCoordinates.sort((n1,n2) => n1.x - n2.x)[0].x;
+        let xMaxElem = mapElementsCoordinates.sort((n1,n2) => n1.x - n2.x)[mapElementsCoordinates.length - 1].x;
+        let yMinElem = mapElementsCoordinates.sort((n1,n2) => n1.y - n2.y)[0].y;
+        let yMaxElem = mapElementsCoordinates.sort((n1,n2) => n1.y - n2.y)[mapElementsCoordinates.length - 1].y;
 
         if (xMinElem + offsetX > xMin)
-            offsetX = 0;
+            offsetX = xMin - xMinElem;
         if (xMaxElem + offsetX < xMax)
-            offsetX = 0;
+            offsetX = xMax - xMaxElem;
         if (yMinElem + offsetY > yMin)
-            offsetY = 0;
+            offsetY = yMin - yMinElem;
         if (yMaxElem + offsetY < yMax)
-            offsetY = 0;
+            offsetY = yMax - yMaxElem;
 
         if (offsetX !== 0 || offsetY !== 0){
             this.moveAll(engine, offsetX, offsetY);
         }
-        
-         
     }
 
     private moveAll(engine: IEngine, offsetX: number, offsetY: number){
@@ -65,8 +63,4 @@ export class CameraMoveSystem implements ISystem{
         }
     }
 
-}
-
-class Offset{
-    constructor(public x: number, public y: number){}
 }
