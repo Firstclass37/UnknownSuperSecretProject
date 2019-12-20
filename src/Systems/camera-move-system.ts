@@ -39,14 +39,14 @@ export class CameraMoveSystem implements ISystem{
         let yMinElem = mapElementsCoordinates.sort(e => e.y)[0].y;
         let yMaxElem = mapElementsCoordinates.sort(e => e.y)[mapElementsCoordinates.length - 1].y + offsetY;
 
-        // if (xMinElem + offsetX < xMin)
-        //     offsetX = 0;
-        // if (xMaxElem + offsetX > xMax)
-        //     offsetX = 0;
-        // if (yMinElem + offsetY < yMin)
-        //     offsetY = 0;
-        // if (yMaxElem + offsetY > yMax)
-        //     offsetY = 0;
+        if (xMinElem + offsetX > xMin)
+            offsetX = 0;
+        if (xMaxElem + offsetX < xMax)
+            offsetX = 0;
+        if (yMinElem + offsetY > yMin)
+            offsetY = 0;
+        if (yMaxElem + offsetY < yMax)
+            offsetY = 0;
 
         if (offsetX !== 0 || offsetY !== 0){
             this.moveAll(engine, offsetX, offsetY);
