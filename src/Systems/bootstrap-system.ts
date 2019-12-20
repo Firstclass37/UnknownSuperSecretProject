@@ -21,6 +21,7 @@ import { InputTestSystem } from "./input-test-system";
 import { InputComponent, PointerDownInputTrigger, KeyboardInputTrigger, Key} from "adane-ecs-input";
 import { TestComponent } from "../Components/test-component";
 import { CameraComponent } from "../Components/camera-component";
+import { CameraMoveSystem } from "./camera-move-system";
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
 
@@ -50,6 +51,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new OneLifeMapElementSystem());
         engine.addSystem(new ChangeCoordinatesSystem());
         engine.addSystem(new MapElementDestructionSystem());
+        engine.addSystem(new CameraMoveSystem());
     }
 
     private getGameSetting(assets: Asset[]): GameSettings{
