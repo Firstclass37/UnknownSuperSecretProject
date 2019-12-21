@@ -33,21 +33,24 @@ export class CameraMoveSystem implements ISystem{
         let offsetX = cameraMove.offsetX;
         let offsetY = cameraMove.offsetY;
 
-        if (xMinElem + offsetX > xMin)
-            offsetX = xMin - xMinElem;
-        if (xMaxElem + offsetX < xMax)
-            offsetX = xMax - xMaxElem;
-        if (yMinElem + offsetY > yMin)
-            offsetY = yMin - yMinElem;
-        if (yMaxElem + offsetY < yMax)
-            offsetY = yMax - yMaxElem;
+        let stepX = Math.abs(offsetX) < cameraMove.stepSize ? offsetX : (offsetX > 0 ? cameraMove.stepSize : -cameraMove.stepSize);
+        let stepY = Math.abs(offsetY) < cameraMove.stepSize ? offsetY : (offsetY > 0 ? cameraMove.stepSize : -cameraMove.stepSize);
+
+        if (xMinElem + stepX > xMin)
+            stepX = xMin - xMinElem;
+        if (xMaxElem + stepX < xMax)
+            stepX = xMax - xMaxElem;
+        if (yMinElem + stepY > yMin)
+            stepY = yMin - yMinElem;
+        if (yMaxElem + stepY < yMax)
+            stepY = yMax - yMaxElem;
 
         if (offsetX !== 0 || offsetY !== 0){
-            this.moveAll(engine, offsetX, offsetY);
+            this.moveAll(engine, stepX, stepY);
         }
 
-        cameraMove.offsetX = 0;
-        cameraMove.offsetY = 0;
+        cameraMove.offsetX -= stepX;
+        cameraMove.offsetY -= stepY;
     }
 
     private moveAll(engine: IEngine, offsetX: number, offsetY: number){

@@ -40,7 +40,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         let assets = engine.entities.findOne(AssetBatchComponent).get(AssetBatchComponent).assets;
         engine.entities.add(new Entity(Guid.newGuid(), new SettingsComponent(this.getGameSetting(assets), this.getMapSetting(assets))));
         engine.entities.add(new Entity(Guid.newGuid(), new TestComponent() ,new InputComponent(new KeyboardInputTrigger(Key.LEFT, Key.LEFT, Key.LEFT))));
-        engine.entities.add(new Entity(Guid.newGuid(), new CameraComponent(240, 400, 0, 0), new CameraMoveComponent(true, 0, 0)));
+        engine.entities.add(new Entity(Guid.newGuid(), new CameraComponent(240, 400, 0, 0), new CameraMoveComponent(true, 0, 0, 5)));
 
         engine.addSystem(new InputTestSystem());
         engine.addSystem(new MapBuildSystem());

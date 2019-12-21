@@ -4,6 +4,7 @@ export class CameraMoveComponent{
     constructor(
         public followPlayer: boolean, 
         public offsetX: number, 
-        public offsetY: number){
+        public offsetY: number,
+        public stepSize: number){
     }
 }

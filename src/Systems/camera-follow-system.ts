@@ -22,5 +22,6 @@ export class CameraFollowSystem implements ISystem{
 
         cameraMove.offsetX = cameraComp.width / 2 - (playerPos.x + settings.size.spriteWidth / 2);
         cameraMove.offsetY = cameraComp.height / 2 - (playerPos.y + settings.size.spriteWidth / 2);
+        cameraMove.stepSize = 2;
     }
 }
