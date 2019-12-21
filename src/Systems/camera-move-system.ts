@@ -18,13 +18,13 @@ export class CameraMoveSystem implements ISystem{
         }
 
         let settings = engine.entities.findOne(SettingsComponent).get(SettingsComponent).gameSettings;
-
-        let mapElementsCoordinates = engine.entities.findMany(MapElementComponent).map(e => e.get(AbsolutePositionComponent));
+        
         let xMin = settings.size.spriteWidth;
         let xMax = cameraComp.width - 2 * settings.size.spriteWidth;
         let yMin = settings.size.spriteWidth;
         let yMax = cameraComp.height - 2 * settings.size.spriteWidth;
 
+        let mapElementsCoordinates = engine.entities.findMany(MapElementComponent).map(e => e.get(AbsolutePositionComponent));
         let xMinElem = mapElementsCoordinates.sort((n1,n2) => n1.x - n2.x)[0].x;
         let xMaxElem = mapElementsCoordinates.sort((n1,n2) => n1.x - n2.x)[mapElementsCoordinates.length - 1].x;
         let yMinElem = mapElementsCoordinates.sort((n1,n2) => n1.y - n2.y)[0].y;
