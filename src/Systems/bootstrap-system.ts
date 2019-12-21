@@ -22,6 +22,8 @@ import { InputComponent, PointerDownInputTrigger, KeyboardInputTrigger, Key} fro
 import { TestComponent } from "../Components/test-component";
 import { CameraComponent } from "../Components/camera-component";
 import { CameraMoveSystem } from "./camera-move-system";
+import { CameraMoveComponent } from "../Components/camera-move-component";
+import { CameraFollowSystem } from "./camera-follow-system";
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
 
@@ -38,7 +40,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         let assets = engine.entities.findOne(AssetBatchComponent).get(AssetBatchComponent).assets;
         engine.entities.add(new Entity(Guid.newGuid(), new SettingsComponent(this.getGameSetting(assets), this.getMapSetting(assets))));
         engine.entities.add(new Entity(Guid.newGuid(), new TestComponent() ,new InputComponent(new KeyboardInputTrigger(Key.LEFT, Key.LEFT, Key.LEFT))));
-        engine.entities.add(new Entity(Guid.newGuid(), new CameraComponent(240, 400, 0, 0)));
+        engine.entities.add(new Entity(Guid.newGuid(), new CameraComponent(240, 400, 0, 0), new CameraMoveComponent(true, 0, 0)));
 
         engine.addSystem(new InputTestSystem());
         engine.addSystem(new MapBuildSystem());
@@ -52,6 +54,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new ChangeCoordinatesSystem());
         engine.addSystem(new MapElementDestructionSystem());
         engine.addSystem(new CameraMoveSystem());
+        engine.addSystem(new CameraFollowSystem());
     }
 
     private getGameSetting(assets: Asset[]): GameSettings{

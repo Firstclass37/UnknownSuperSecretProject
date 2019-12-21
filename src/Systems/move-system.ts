@@ -3,6 +3,7 @@ import { PlayerMoveComponent } from "../Components/player-move-component";
 import { PlayerComponent } from "../Components/player-component";
 import { MapPositionComponent } from "../Components/map-position-component";
 import { ChangePositionComponent } from "../Components/change-position-component";
+import { CameraMoveComponent } from "../Components/camera-move-component";
 
 export class MoveSystem implements ISystem {
     update(engine: IEngine): void {
@@ -13,6 +14,9 @@ export class MoveSystem implements ISystem {
         if (!movement.path || movement.path.length == 0){
             return;
         }
+
+        engine.entities.findOne(CameraMoveComponent).get(CameraMoveComponent).followPlayer = true;
+
         let changePos = player.get(ChangePositionComponent);
         if (changePos.complete && changePos.to){
             playerPos.mapElementNumber = changePos.to;
