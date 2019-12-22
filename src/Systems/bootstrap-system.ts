@@ -24,6 +24,7 @@ import { CameraComponent } from "../Components/camera-component";
 import { CameraMoveSystem } from "./camera-move-system";
 import { CameraMoveComponent } from "../Components/camera-move-component";
 import { CameraFollowSystem } from "./camera-follow-system";
+import { CameraScrollSystem } from "./camera-scroll-system";
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
 
@@ -55,6 +56,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new MapElementDestructionSystem());
         engine.addSystem(new CameraMoveSystem());
         engine.addSystem(new CameraFollowSystem());
+        engine.addSystem(new CameraScrollSystem());
     }
 
     private getGameSetting(assets: Asset[]): GameSettings{
