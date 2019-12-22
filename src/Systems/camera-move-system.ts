@@ -19,7 +19,7 @@ export class CameraMoveSystem implements ISystem{
 
         let settings = engine.entities.findOne(SettingsComponent).get(SettingsComponent).gameSettings;
         
-        let xMin = cameraComp.x +  settings.size.spriteWidth;
+        let xMin = cameraComp.x + settings.size.spriteWidth;
         let xMax = cameraComp.x + cameraComp.width - 2 * settings.size.spriteWidth;
         let yMin = cameraComp.y + settings.size.spriteWidth;
         let yMax = cameraComp.y + cameraComp.height - 2 * settings.size.spriteWidth;

@@ -20,8 +20,8 @@ export class CameraFollowSystem implements ISystem{
         let settings = engine.entities.findOne(SettingsComponent).get(SettingsComponent).gameSettings;
         let playerPos = player.get(AbsolutePositionComponent);
 
-        cameraMove.offsetX = cameraComp.width / 2 - (playerPos.x + settings.size.spriteWidth / 2);
-        cameraMove.offsetY = cameraComp.height / 2 - (playerPos.y + settings.size.spriteWidth / 2);
+        cameraMove.offsetX = cameraComp.x +  cameraComp.width / 2 - (playerPos.x + settings.size.spriteWidth / 2);
+        cameraMove.offsetY = cameraComp.y + cameraComp.height / 2 - (playerPos.y + settings.size.spriteWidth / 2);
         cameraMove.stepSize = 2;
     }
 }

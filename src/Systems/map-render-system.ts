@@ -6,6 +6,7 @@ import { MapElementComponent } from "../Components/map-element-component";
 import { InputComponent, PointerDownInputTrigger } from "adane-ecs-input";
 import { ChangeSpriteComponent } from "../Components/change-sprite-component"
 import { AbsolutePositionComponent } from "../Components/absolute-position-component";
+import { CameraComponent } from "../Components/camera-component";
 
 export class MapRenderSystem implements ISystem{
 
@@ -22,11 +23,12 @@ export class MapRenderSystem implements ISystem{
     }
     
     private init(engine: IEngine, entities: Entity[]): void{
+        let camera = engine.entities.findOne(CameraComponent).get(CameraComponent);
         let settings = engine.entities.findOne(SettingsComponent).get(SettingsComponent);
         let gameSettings = settings.gameSettings;
 
-        let verticalPadding = gameSettings.size.spriteWidth;
-        var horizontalPadding = gameSettings.size.spriteWidth;
+        let verticalPadding = camera.y + gameSettings.size.spriteWidth;
+        var horizontalPadding = camera.x + gameSettings.size.spriteWidth;
         let additionalPadding = gameSettings.size.spriteWidth / 2;
         let even = settings.gameSettings.map.even;
         let width = settings.gameSettings.map.width;
