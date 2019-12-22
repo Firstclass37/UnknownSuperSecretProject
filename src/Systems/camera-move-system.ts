@@ -33,8 +33,11 @@ export class CameraMoveSystem implements ISystem{
         let offsetX = cameraMove.offsetX;
         let offsetY = cameraMove.offsetY;
 
-        let stepX = Math.abs(offsetX) < cameraMove.stepSize ? offsetX : (offsetX > 0 ? cameraMove.stepSize : -cameraMove.stepSize);
-        let stepY = Math.abs(offsetY) < cameraMove.stepSize ? offsetY : (offsetY > 0 ? cameraMove.stepSize : -cameraMove.stepSize);
+        let stepVectorX = offsetX > 0 ? cameraMove.stepSize : -cameraMove.stepSize;
+        let stepVectorY = offsetY > 0 ? cameraMove.stepSize : -cameraMove.stepSize;
+
+        let stepX = Math.abs(offsetX) > cameraMove.stepSize ? stepVectorX : offsetX;
+        let stepY = Math.abs(offsetY) > cameraMove.stepSize ? stepVectorY : offsetY;
 
         if (xMinElem + stepX > xMin)
             stepX = xMin - xMinElem;

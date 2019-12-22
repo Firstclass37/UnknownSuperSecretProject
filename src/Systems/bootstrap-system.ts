@@ -52,11 +52,11 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new MovementSystem());
         engine.addSystem(new ChangePositionSystem());
         engine.addSystem(new OneLifeMapElementSystem());
-        engine.addSystem(new ChangeCoordinatesSystem());
         engine.addSystem(new MapElementDestructionSystem());
         engine.addSystem(new CameraMoveSystem());
         engine.addSystem(new CameraFollowSystem());
         engine.addSystem(new CameraScrollSystem());
+        engine.addSystem(new ChangeCoordinatesSystem());
     }
 
     private getGameSetting(assets: Asset[]): GameSettings{

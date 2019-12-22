@@ -14,7 +14,7 @@ export class ChangeCoordinatesSystem implements ISystem{
 
     private changeCoordinates(entity: Entity): void{
         let changeCoordinates = entity.get(ChangeCoordinatesComponent);
-        if (!changeCoordinates.compeleted && changeCoordinates.xFrom){
+        if (!changeCoordinates.compeleted){
             if (this.move(entity, changeCoordinates)){
                 this.refresh(changeCoordinates);
             }
@@ -24,32 +24,29 @@ export class ChangeCoordinatesSystem implements ISystem{
     private move(entity: Entity, changeCoordinates: ChangeCoordinatesComponent): boolean{
         let position = entity.get(AbsolutePositionComponent);
 
-        let vectorX = changeCoordinates.xTo - changeCoordinates.xFrom;
-        let vectorY = changeCoordinates.yTo - changeCoordinates.yFrom;
+        let offsetX = changeCoordinates.offsetX;
+        let offsetY = changeCoordinates.offsetY;
 
-        let stepX = vectorX * changeCoordinates.speed;
-        let stepY = vectorY * changeCoordinates.speed;
+        let stepVectorX = offsetX > 0 ? changeCoordinates.speed : -changeCoordinates.speed;
+        let stepVectorY = offsetY > 0 ? changeCoordinates.speed : -changeCoordinates.speed;
 
-        let targetPlayerPosX = changeCoordinates.xTo;
-        let targetPlayerPosY = changeCoordinates.yTo;
+        let stepX = Math.abs(offsetX) > changeCoordinates.speed ? stepVectorX : offsetX;
+        let stepY = Math.abs(offsetY) > changeCoordinates.speed ? stepVectorY : offsetY;
 
-        let nextPosX = position.x + stepX;
-        let nextPosY = position.y + stepY;
-
-        position.x = Math.abs(stepX) < Math.abs(nextPosX - targetPlayerPosX) ?  nextPosX : targetPlayerPosX;
-        position.y = Math.abs(stepY) < Math.abs(nextPosY - targetPlayerPosY) ?  nextPosY : targetPlayerPosY;
-        
-        this.changeCoord(entity, position.x, position.y);
-
-        return position.x == targetPlayerPosX && position.y == targetPlayerPosY;
+        if (stepX !==0 || stepY !==0){
+            position.x += stepX;
+            position.y += stepY;
+            this.changeCoord(entity, position.x, position.y);
+            changeCoordinates.offsetX -= stepX;
+            changeCoordinates.offsetY -= stepY;
+        }
+        return changeCoordinates.offsetX === 0 && changeCoordinates.offsetY === 0;
     }
 
     private refresh(component: ChangeCoordinatesComponent): void{
         component.compeleted = true;
-        component.xFrom = undefined;
-        component.yFrom = undefined;
-        component.xTo = undefined;
-        component.yTo = undefined;
+        component.offsetX = undefined;
+        component.offsetY = undefined;
     }
 
     private changeCoord(player: Entity, xPos: number, yPos: number){

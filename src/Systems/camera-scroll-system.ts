@@ -8,7 +8,7 @@ export class CameraScrollSystem implements ISystem {
     update(engine: IEngine): void {
         let cameraMove = engine.entities.findOne(CameraComponent).get(CameraMoveComponent);
         //detect pressed keys
-        if (false){
+        if (true){
             return;
         }
         
