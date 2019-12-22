@@ -5,7 +5,6 @@ import { MapElementComponent } from "../Components/map-element-component";
 import { AbsolutePositionComponent } from "../Components/absolute-position-component";
 import { RenderableComponent, SpriteObject } from "adane-ecs-graphics"
 import { MapPositionComponent } from "../Components/map-position-component";
-import { AssetsConsts } from "../assets-consts";
 
 export class ChangePositionSystem implements ISystem{
 

@@ -17,6 +17,9 @@ import { DestructionComponent } from "..//Components/destruction-component";
 export class MovementSystem implements ISystem {
     update(engine: IEngine): void {
         this.finishMovement(engine);
+        
+        let playerMoveComponent = engine.entities.findOne(PlayerMoveComponent).get<PlayerMoveComponent>(PlayerMoveComponent);
+        playerMoveComponent.new = false;
 
         let interacted = this.findInput(engine);
         if (!interacted){
@@ -25,19 +28,14 @@ export class MovementSystem implements ISystem {
 
         let targetPosition = interacted.get<MapElementComponent>(MapElementComponent).num;
         let currentPlayerPosition = engine.entities.findOne(PlayerComponent).get<MapPositionComponent>(MapPositionComponent).mapElementNumber;
-        let playerMoveComponent = engine.entities.findOne(PlayerMoveComponent).get<PlayerMoveComponent>(PlayerMoveComponent);
-
-        playerMoveComponent.new = false;
         if (playerMoveComponent.path && playerMoveComponent.path.length > 0 && playerMoveComponent.path[playerMoveComponent.path.length - 1] != targetPosition){
             let path = playerMoveComponent.path.splice(playerMoveComponent.path.indexOf(currentPlayerPosition));
             this.show(engine, path, false);
             this.resetMovement(playerMoveComponent);            
         }
-        if (!playerMoveComponent.path || playerMoveComponent.path.length == 0){
-            playerMoveComponent.path = this.buildPath(currentPlayerPosition, targetPosition, engine);
-            playerMoveComponent.new = true;
-            this.show(engine, playerMoveComponent.path, true);
-        }
+        playerMoveComponent.path = this.buildPath(currentPlayerPosition, targetPosition, engine);
+        playerMoveComponent.new = true;
+        this.show(engine, playerMoveComponent.path, true);
     }
 
     private buildPath(start: number, end: number, engine: IEngine): number[] {
