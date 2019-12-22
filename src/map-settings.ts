@@ -4,4 +4,5 @@ export class MapSetting{
     crystal: number[];
     boots: number[];
     shields: number[];
+    keys: number[];
 }

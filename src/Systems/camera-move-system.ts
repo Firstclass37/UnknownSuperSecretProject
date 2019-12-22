@@ -60,9 +60,11 @@ export class CameraMoveSystem implements ISystem{
         var renderables = engine.entities.findMany(RenderableComponent);
         for(let i = 0; i < renderables.length; i ++){
             let coordinates = renderables[i].get(AbsolutePositionComponent);
-            coordinates.x += offsetX;
-            coordinates.y += offsetY;
-            renderables[i].get(RenderableComponent).renderable.set(SpriteObject, ".", (o) => { o.position = { x: coordinates.x, y: coordinates.y} }); 
+            if (!coordinates.staticc){
+                coordinates.x += offsetX;
+                coordinates.y += offsetY;
+                renderables[i].get(RenderableComponent).renderable.set(SpriteObject, ".", (o) => { o.position = { x: coordinates.x, y: coordinates.y} }); 
+            }
         }
     }
 

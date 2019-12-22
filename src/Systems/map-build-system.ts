@@ -1,7 +1,5 @@
 import { ISystem, IEngine, Entity } from "adane-ecs"
-import { RenderableComponent, Renderable } from "adane-ecs-graphics"
 import { Guid } from "adane-system";
-import { AssetsConsts } from "../assets-consts";
 import { SettingsComponent } from "../Components/settings-componen";
 import { MapElementComponent } from "../Components/map-element-component";
 import { ChangeSpriteComponent } from "../Components/change-sprite-component"
@@ -12,6 +10,7 @@ import { PlayerMoveComponent } from "../Components/player-move-component";
 import { ChangePositionComponent } from "../Components/change-position-component"; 
 import { ChangeCoordinatesComponent } from "../Components/change-coordinates-component";
 import { DestructionComponent } from "../Components/destruction-component";
+import { KeyComponent } from "../Components/key-component";
 
 
 export class MapBuildSystem implements ISystem {
@@ -31,6 +30,9 @@ export class MapBuildSystem implements ISystem {
                 engine.entities.add(this.createMapElement(num));
                 if (mapSettings.player == num){
                     engine.entities.add(this.createPlayer(num));
+                }
+                else if (mapSettings.keys.indexOf(num) !== -1){
+                    engine.entities.add(this.createKey(num));
                 }
         }
 
@@ -52,28 +54,7 @@ export class MapBuildSystem implements ISystem {
         return new Entity(Guid.newGuid(), new MapPositionComponent(position), new PlayerComponent(), new PlayerMoveComponent(), new ChangePositionComponent());
     }
 
-    private createTower(x: number, y: number, position: number): Entity{
-        let renderable = this.createRenderable(AssetsConsts.towerSprite, `tower${position}`, x, y);
-        return new Entity(Guid.newGuid(), renderable);
-    }
-
-    private createCrystal(x: number, y: number, position: number): Entity{
-        let renderable = this.createRenderable(AssetsConsts.crystalSprite, `crystal${position}`, x, y);
-        return new Entity(Guid.newGuid(), renderable);
-    }
-
-    private createBoot(x: number, y: number, position: number): Entity{
-        let renderable = this.createRenderable(AssetsConsts.bootsSprite, `boot${position}`, x, y);
-        return new Entity(Guid.newGuid(), renderable);
-    }
-
-    private createShield(x: number, y: number, position: number): Entity{
-        let renderable = this.createRenderable(AssetsConsts.shieldSprite, `shield${position}`, x, y);
-        return new Entity(Guid.newGuid(), renderable);
-    }
-
-    private createRenderable(asset: string, name: string, xPos: number, yPos: number): RenderableComponent{
-        let component = new RenderableComponent(Renderable.define((factory) => factory.sprite( { name: name, texture: asset, position: {x: xPos, y: yPos}} )));
-        return component;
+    private createKey(position: number): Entity{
+        return new Entity(Guid.newGuid(), new KeyComponent(), new MapPositionComponent(position), new ChangeCoordinatesComponent());
     }
 }
