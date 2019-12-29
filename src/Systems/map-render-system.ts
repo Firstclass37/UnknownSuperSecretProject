@@ -28,7 +28,7 @@ export class MapRenderSystem implements ISystem{
         let gameSettings = settings.gameSettings;
 
         let verticalPadding = camera.y + gameSettings.size.spriteWidth;
-        var horizontalPadding = camera.x + gameSettings.size.spriteWidth;
+        let horizontalPadding = camera.x;
         let additionalPadding = gameSettings.size.spriteWidth / 2;
         let even = settings.gameSettings.map.even;
         let width = settings.gameSettings.map.width;
