@@ -14,7 +14,7 @@ export class PathSearcher<T> implements IPathSearcher<T>{
         fScore.set(start, setting.fScoreStrategy.get(start, end, 0));
 
         while(open.length > 0) {
-            let current = this.selectMin(fScore);
+            let current = this.selectMin(fScore, open);
             if (current == end){
                 return this.buildPath(pathMap, end);
             }
@@ -73,15 +73,9 @@ export class PathSearcher<T> implements IPathSearcher<T>{
         return path.reverse();
     }
 
-    selectMin<T>(lengths: Map<T, number>): T{
-        let min: number;
-        let point: T;
-        lengths.forEach((val, key) => {
-            if (point == null || val < min){
-                point = key;
-                min = val;
-            }
-        })
-        return point;
+    selectMin<T>(lengths: Map<T, number>, open: T[]): T{
+        return open.length > 0 
+            ? open.sort((n1, n2) => lengths.get(n1) - lengths.get(n2))[0] 
+            : null;
     }
 }
