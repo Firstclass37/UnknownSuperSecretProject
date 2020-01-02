@@ -5,4 +5,5 @@ export class MapSetting{
     boots: number[];
     shields: number[];
     keys: number[];
+    exit: number;
 }

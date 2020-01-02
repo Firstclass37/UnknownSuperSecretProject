@@ -9,6 +9,8 @@ export class AssetsConsts{
     static mapElementSelectedSprite: string = "./assets/mapElem_selected.png"
     static mapElementDestructed: string = "./assets/mapElem_destructed.png";
     static key: string = "./assets/key.png";
+    static doorClosed: string = "./assets/door-closed.png";
+    static doorOpened: string = "./assets/door-open.png";
 
     static gameSettings: string = "./assets/game-settings.json";
     static mapSettings: string = "./assets/map-1.json";
