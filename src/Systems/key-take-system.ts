@@ -34,7 +34,7 @@ export class KeyTakeSystem implements ISystem{
 
         let dropped = otherKeys.filter(k => k.get(KeyComponent).dropped).map(e => e.get(AbsolutePositionComponent).x);
         if (dropped.length > 0){
-            x = dropped.sort((n1, n2) => n1 - n2)[0] + 40 + 20;
+            x = dropped.sort((n1, n2) => n1 - n2)[0] - 40 - 20;
         }
 
         let changePos = key.get(ChangeCoordinatesComponent);
