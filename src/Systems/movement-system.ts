@@ -100,6 +100,6 @@ export class MovementSystem implements ISystem {
     }
 
     private isBlocked(mapElement: Entity): boolean{
-        return mapElement.get(DestructionComponent).needDestruct;
+        return mapElement.get(DestructionComponent).needDestruct || mapElement.get(MapElementComponent).blocked;
     }
 }

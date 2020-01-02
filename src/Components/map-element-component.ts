@@ -1,5 +1,5 @@
 import { IComponent } from "adane-ecs"
 
 export class MapElementComponent implements IComponent{
-    constructor(public num: number){}
+    constructor(public num: number, public blocked: boolean = false){}
 }
