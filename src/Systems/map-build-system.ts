@@ -4,7 +4,6 @@ import { SettingsComponent } from "../Components/settings-componen";
 import { MapElementComponent } from "../Components/map-element-component";
 import { ChangeSpriteComponent } from "../Components/change-sprite-component"
 import { MapPositionComponent} from "../Components/map-position-component"
-import { SelectComponent } from "../Components/select-component";
 import { PlayerComponent } from "../Components/player-component";
 import { PlayerMoveComponent } from "../Components/player-move-component";
 import { ChangePositionComponent } from "../Components/change-position-component"; 
@@ -45,7 +44,6 @@ export class MapBuildSystem implements ISystem {
             Guid.newGuid(), 
             new MapElementComponent(position), 
             new ChangeSpriteComponent(), 
-            new SelectComponent(), 
             new DestructionComponent(), 
             new ChangeCoordinatesComponent());
     }
