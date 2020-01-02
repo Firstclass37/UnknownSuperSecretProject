@@ -1,10 +1,9 @@
 import { ISystem, IEngine, Entity } from "adane-ecs"
-import { RenderableComponent, Renderable, SpriteObject } from "adane-ecs-graphics"
+import { RenderableComponent, Renderable } from "adane-ecs-graphics"
 import { AssetsConsts } from "../assets-consts";
 import { SettingsComponent } from "../Components/settings-componen";
 import { MapElementComponent } from "../Components/map-element-component";
 import { InputComponent, PointerDownInputTrigger } from "adane-ecs-input";
-import { ChangeSpriteComponent } from "../Components/change-sprite-component"
 import { AbsolutePositionComponent } from "../Components/absolute-position-component";
 import { CameraComponent } from "../Components/camera-component";
 
@@ -15,11 +14,7 @@ export class MapRenderSystem implements ISystem{
         let elements = engine.entities.findMany(MapElementComponent).sort(e => e.get(MapElementComponent).num);
         if (!elements[0].get(RenderableComponent)){
             this.init(engine, elements);
-        }
-        else{
-            this.checkUpdate(engine, elements);
-        }
-        
+        }     
     }
     
     private init(engine: IEngine, entities: Entity[]): void{
@@ -58,21 +53,6 @@ export class MapRenderSystem implements ISystem{
             entity.add(this.createRenderable(AssetsConsts.mapElementSprite2, `mapElement${x},${y}`, x, y));
             entity.add(new AbsolutePositionComponent(x, y));
             entity.add(new InputComponent(new PointerDownInputTrigger()));
-    }
-
-    private checkUpdate(engine: IEngine, entities: Entity[]){
-        for (let i = 0; i < entities.length; i++){
-            let entity = entities[i];
-
-            if (entity.has(ChangeSpriteComponent.name)){
-                let asset = entity.get(ChangeSpriteComponent);
-                if (asset.asset){
-                    let renderable = entity.get(RenderableComponent).renderable;
-                    renderable.set(SpriteObject, ".", (p) => { p.texture = asset.asset })
-                    asset.asset = null;
-                }
-            }
-        }
     }
 
     private createRenderable(asset: string, name: string, xPos: number, yPos: number): RenderableComponent{

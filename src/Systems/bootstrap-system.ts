@@ -27,6 +27,7 @@ import { CameraFollowSystem } from "./camera-follow-system";
 import { CameraScrollSystem } from "./camera-scroll-system";
 import { KeyRenderSystem } from "./key-render-system";
 import { KeyTakeSystem } from "./key-take-system";
+import { ChangeSpriteSystem } from "./change-sprite-system";
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
 
@@ -53,6 +54,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new MapRenderSystem());
         engine.addSystem(new PlayerRenderSystem());
         engine.addSystem(new KeyRenderSystem());
+        engine.addSystem(new ChangeSpriteSystem());
         engine.addSystem(new ChangePositionSystem());
         engine.addSystem(new OneLifeMapElementSystem());
         engine.addSystem(new MapElementDestructionSystem());
