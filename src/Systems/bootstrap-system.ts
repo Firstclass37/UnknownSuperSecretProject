@@ -18,7 +18,7 @@ import { OneLifeMapElementSystem } from "./one-life-map-element-system";
 import { ChangeCoordinatesSystem } from "./change-coordinates-system";
 import { MapElementDestructionSystem } from "./map-element-destruction-system";
 import { InputTestSystem } from "./input-test-system";
-import { InputComponent, PointerDownInputTrigger, KeyboardInputTrigger, Key} from "adane-ecs-input";
+import { InputComponent, KeyboardInputTrigger, Key} from "adane-ecs-input";
 import { TestComponent } from "../Components/test-component";
 import { CameraComponent } from "../Components/camera-component";
 import { CameraMoveSystem } from "./camera-move-system";
@@ -28,6 +28,8 @@ import { CameraScrollSystem } from "./camera-scroll-system";
 import { KeyRenderSystem } from "./key-render-system";
 import { KeyTakeSystem } from "./key-take-system";
 import { ChangeSpriteSystem } from "./change-sprite-system";
+import { DoorRenderSystem } from "./door-render-system";
+import { OpenDoorSystem } from "./open-door-system";
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
 
@@ -53,6 +55,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new MapBuildSystem());
         engine.addSystem(new MapRenderSystem());
         engine.addSystem(new PlayerRenderSystem());
+        engine.addSystem(new DoorRenderSystem());
         engine.addSystem(new KeyRenderSystem());
         engine.addSystem(new ChangeSpriteSystem());
         engine.addSystem(new ChangePositionSystem());
@@ -61,6 +64,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new MovementSystem());
         engine.addSystem(new MoveSystem());
         engine.addSystem(new KeyTakeSystem());
+        engine.addSystem(new OpenDoorSystem());
         engine.addSystem(new CameraMoveSystem());
         engine.addSystem(new CameraFollowSystem());
         engine.addSystem(new CameraScrollSystem());

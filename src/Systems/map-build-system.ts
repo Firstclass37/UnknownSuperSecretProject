@@ -10,6 +10,7 @@ import { ChangePositionComponent } from "../Components/change-position-component
 import { ChangeCoordinatesComponent } from "../Components/change-coordinates-component";
 import { DestructionComponent } from "../Components/destruction-component";
 import { KeyComponent } from "../Components/key-component";
+import { DoorComponent } from "../Components/door-component";
 
 
 export class MapBuildSystem implements ISystem {
@@ -26,23 +27,29 @@ export class MapBuildSystem implements ISystem {
         let totalCount = bigRowCount + smallRowCount; 
 
         for (let num = 1; num <= totalCount; num++){
-                engine.entities.add(this.createMapElement(num));
-                if (mapSettings.player == num){
+                let blocked = false;
+                
+                if (mapSettings.player === num){
                     engine.entities.add(this.createPlayer(num));
                 }
                 else if (mapSettings.keys.indexOf(num) !== -1){
                     engine.entities.add(this.createKey(num));
                 }
+                else if (mapSettings.exit === num){
+                    engine.entities.add(this.createExit(num));
+                    blocked = true;
+                }
+                engine.entities.add(this.createMapElement(num, blocked));
         }
 
         engine.removeSystem(this);
     }
 
 
-    private createMapElement(position: number): Entity{
+    private createMapElement(position: number, blocked: boolean = false): Entity{
         return new Entity(
             Guid.newGuid(), 
-            new MapElementComponent(position), 
+            new MapElementComponent(position, blocked), 
             new ChangeSpriteComponent(), 
             new DestructionComponent(), 
             new ChangeCoordinatesComponent());
@@ -54,5 +61,9 @@ export class MapBuildSystem implements ISystem {
 
     private createKey(position: number): Entity{
         return new Entity(Guid.newGuid(), new KeyComponent(), new MapPositionComponent(position), new ChangeCoordinatesComponent());
+    }
+
+    private createExit(position: number){
+        return new Entity(Guid.newGuid(), new DoorComponent(), new MapPositionComponent(position), new ChangeSpriteComponent());
     }
 }
