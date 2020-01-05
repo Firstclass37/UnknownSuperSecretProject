@@ -11,6 +11,7 @@ export class AssetsConsts{
     static key: string = "./assets/key.png";
     static doorClosed: string = "./assets/door-closed.png";
     static doorOpened: string = "./assets/door-open.png";
+    static treeSprite: string = "./assets/tree.png";
 
     static gameSettings: string = "./assets/game-settings.json";
     static mapSettings: string = "./assets/map-1.json";

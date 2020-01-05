@@ -6,4 +6,5 @@ export class MapSetting{
     shields: number[];
     keys: number[];
     exit: number;
+    trees: number[];
 }
