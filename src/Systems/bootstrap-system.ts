@@ -10,7 +10,6 @@ import { GameSettings } from "../game-settings";
 import { MapSetting } from "../map-settings";
 import { Guid } from "adane-system";
 import { SettingsComponent } from "../Components/settings-componen";
-import { PlayerRenderSystem  } from "./player-render-system";
 import { MovementSystem } from "./movement-system";
 import { MoveSystem } from "./move-system";
 import { ChangePositionSystem } from "./change-position-system";
@@ -25,10 +24,8 @@ import { CameraMoveSystem } from "./camera-move-system";
 import { CameraMoveComponent } from "../Components/camera-move-component";
 import { CameraFollowSystem } from "./camera-follow-system";
 import { CameraScrollSystem } from "./camera-scroll-system";
-import { KeyRenderSystem } from "./key-render-system";
 import { KeyTakeSystem } from "./key-take-system";
 import { ChangeSpriteSystem } from "./change-sprite-system";
-import { DoorRenderSystem } from "./door-render-system";
 import { OpenDoorSystem } from "./open-door-system";
 import { MapObjectRenderSystem } from "./map-object-render-system";
 

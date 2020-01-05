@@ -7,4 +7,5 @@ export class MapSetting{
     keys: number[];
     exit: number;
     trees: number[];
+    stones: number[];
 }

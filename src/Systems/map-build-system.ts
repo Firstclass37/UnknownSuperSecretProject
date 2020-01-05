@@ -41,6 +41,14 @@ export class MapBuildSystem implements ISystem {
                     engine.entities.add(this.createExit(num));
                     blocked = true;
                 }
+                else if (mapSettings.trees.indexOf(num) !== -1){
+                    engine.entities.add(this.createTree(num));
+                    blocked = true;
+                }
+                else if (mapSettings.stones.indexOf(num) !== -1){
+                    engine.entities.add(this.createStone(num));
+                    blocked = true;
+                }
                 engine.entities.add(this.createMapElement(num, blocked));
         }
 
@@ -83,5 +91,17 @@ export class MapBuildSystem implements ISystem {
             new MapPositionComponent(position), 
             new ChangeSpriteComponent(),
             new MapObjectRenderQueueComponent(position, AssetsConsts.doorClosed, 1, 0, -20));
+    }
+
+    private createTree(position: number){
+        return new Entity(
+            Guid.newGuid(),  
+            new MapObjectRenderQueueComponent(position, AssetsConsts.treeSprite, 1, 0, -20));
+    }
+
+    private createStone(position: number){
+        return new Entity(
+            Guid.newGuid(),  
+            new MapObjectRenderQueueComponent(position, AssetsConsts.stoneSprite, 1, 0, -20));
     }
 }
