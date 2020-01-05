@@ -1,6 +1,6 @@
 import { ISystem, IEngine } from "adane-ecs"
-import { InputComponent, PointerDownInputTrigger, KeyboardInputTrigger } from "adane-ecs-input";
-import { TestComponent} from "../Components/test-component";
+import { InputComponent } from "adane-ecs-input";
+import { MapElementComponent } from "../Components/map-element-component";
 
 
 export class InputTestSystem implements ISystem{
@@ -13,11 +13,11 @@ export class InputTestSystem implements ISystem{
         entities.forEach(e => {
             let input = e.get(InputComponent);
             if (input.hit){
-                console.log(`hit!!!!! ${e.identity}`);
+                let mapElem = e.get(MapElementComponent);
+                let mapElemeNum = mapElem ? mapElem.num : 0;
+
+                console.log(`hit!!!!! ${e.identity}, ${mapElemeNum}`);
             }
         });
-
-        let keyboard = engine.entities.findMany(InputComponent, TestComponent);
     }
-
 }
