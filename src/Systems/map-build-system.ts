@@ -11,6 +11,8 @@ import { ChangeCoordinatesComponent } from "../Components/change-coordinates-com
 import { DestructionComponent } from "../Components/destruction-component";
 import { KeyComponent } from "../Components/key-component";
 import { DoorComponent } from "../Components/door-component";
+import { MapObjectRenderQueueComponent } from "../Components/map-object-render-queue-component";
+import { AssetsConsts } from "../assets-consts";
 
 
 export class MapBuildSystem implements ISystem {
@@ -56,14 +58,30 @@ export class MapBuildSystem implements ISystem {
     }
 
     private createPlayer(position: number): Entity{
-        return new Entity(Guid.newGuid(), new MapPositionComponent(position), new PlayerComponent(), new PlayerMoveComponent(), new ChangePositionComponent());
+        return new Entity(
+            Guid.newGuid(), 
+            new MapPositionComponent(position),
+            new PlayerComponent(),
+            new PlayerMoveComponent(), 
+            new ChangePositionComponent(),
+            new MapObjectRenderQueueComponent(position, AssetsConsts.playerSprite, 1, 15, -12));
     }
 
     private createKey(position: number): Entity{
-        return new Entity(Guid.newGuid(), new KeyComponent(), new MapPositionComponent(position), new ChangeCoordinatesComponent());
+        return new Entity(
+            Guid.newGuid(), 
+            new KeyComponent(), 
+            new MapPositionComponent(position), 
+            new ChangeCoordinatesComponent(),
+            new MapObjectRenderQueueComponent(position, AssetsConsts.key, 1, 15, -12));
     }
 
     private createExit(position: number){
-        return new Entity(Guid.newGuid(), new DoorComponent(), new MapPositionComponent(position), new ChangeSpriteComponent());
+        return new Entity(
+            Guid.newGuid(), 
+            new DoorComponent(), 
+            new MapPositionComponent(position), 
+            new ChangeSpriteComponent(),
+            new MapObjectRenderQueueComponent(position, AssetsConsts.doorClosed, 1, 0, -20));
     }
 }

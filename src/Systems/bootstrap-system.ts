@@ -30,6 +30,7 @@ import { KeyTakeSystem } from "./key-take-system";
 import { ChangeSpriteSystem } from "./change-sprite-system";
 import { DoorRenderSystem } from "./door-render-system";
 import { OpenDoorSystem } from "./open-door-system";
+import { MapObjectRenderSystem } from "./map-object-render-system";
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
 
@@ -54,9 +55,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new InputTestSystem());
         engine.addSystem(new MapBuildSystem());
         engine.addSystem(new MapRenderSystem());
-        engine.addSystem(new PlayerRenderSystem());
-        engine.addSystem(new DoorRenderSystem());
-        engine.addSystem(new KeyRenderSystem());
+        engine.addSystem(new MapObjectRenderSystem());
         engine.addSystem(new ChangeSpriteSystem());
         engine.addSystem(new ChangePositionSystem());
         engine.addSystem(new OneLifeMapElementSystem());
