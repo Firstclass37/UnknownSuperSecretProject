@@ -94,6 +94,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
             AssetsConsts.key,
             AssetsConsts.doorClosed,
             AssetsConsts.doorOpened,
+            AssetsConsts.unknown_1,
 
             AssetsConsts.gameSettings,
             AssetsConsts.mapSettings,
