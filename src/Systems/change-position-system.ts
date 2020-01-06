@@ -20,13 +20,13 @@ export class ChangePositionSystem implements ISystem{
             let playerPos = entity.get(MapPositionComponent).mapElementNumber;
             let fromEntity = engine.entities.findMany(MapElementComponent).filter(e => e.get(MapElementComponent).num == playerPos)[0];
             let targetEntity = engine.entities.findMany(MapElementComponent).filter(e => e.get(MapElementComponent).num == positionChange.to)[0];
-            if (this.move(entity, fromEntity,  targetEntity)){
+            if (this.move(entity, fromEntity,  targetEntity, positionChange.speed)){
                 positionChange.complete = true;
             };
         }
     }
 
-    private move(entity: Entity, from: Entity,  to: Entity): boolean{
+    private move(entity: Entity, from: Entity,  to: Entity, speed: number): boolean{
         let pos = entity.get(AbsolutePositionComponent);
         let fromPos = from.get(AbsolutePositionComponent);
         let targetPos = to.get(AbsolutePositionComponent);
@@ -34,8 +34,8 @@ export class ChangePositionSystem implements ISystem{
         let vectorX = targetPos.x - fromPos.x;
         let vectorY = targetPos.y - fromPos.y;
 
-        let stepX = vectorX * 0.05;
-        let stepY = vectorY * 0.05;
+        let stepX = vectorX * speed;
+        let stepY = vectorY * speed;
 
         let targetPosX = targetPos.x + 15;
         let targetPosY = targetPos.y - 12;

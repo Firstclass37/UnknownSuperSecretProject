@@ -31,6 +31,7 @@ export class EnemyMoveSystem implements ISystem{
             changeCoord.complete = false;
             changeCoord.from = currPos.mapElementNumber;
             changeCoord.to = next;
+            changeCoord.speed = 0.03;
         }
     }
 
@@ -58,7 +59,7 @@ export class EnemyMoveSystem implements ISystem{
             let position = enemy.get(MapPositionComponent).mapElementNumber;
 
             trajectory.startPosition =  position;
-            trajectory.path = [ position - 1 + mapSettings.width - 1, trajectory.startPosition, position - 1 - mapSettings.width + 1 ];    
+            trajectory.path = [ position + mapSettings.width - 1, trajectory.startPosition, position - mapSettings.width + 1 ];    
         }
     }
 }

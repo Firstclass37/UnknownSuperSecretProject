@@ -7,4 +7,5 @@ export class ChangePositionComponent implements IComponent {
     from: number;
     to: number;
     complete: boolean;
+    speed: number = 0.1;
 }
