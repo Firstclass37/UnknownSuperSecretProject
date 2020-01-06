@@ -2,10 +2,11 @@ import { ISystem, IEngine, Entity } from "adane-ecs"
 import { MapElementComponent } from "../Components/map-element-component";
 import { ChangePositionComponent } from "../Components/change-position-component";
 import { DestructionComponent } from "../Components/destruction-component";
+import { PlayerComponent } from "../Components/player-component";
 
 export class OneLifeMapElementSystem implements ISystem {
     update(engine: IEngine): void {
-        let changePosition = engine.entities.findOne(ChangePositionComponent).get(ChangePositionComponent);
+        let changePosition = engine.entities.findOne(PlayerComponent, ChangePositionComponent).get(ChangePositionComponent);
         if (changePosition.from && changePosition.complete){
             let entity = this.findElement(changePosition.from, engine);
             let destruction = entity.get(DestructionComponent);

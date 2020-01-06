@@ -1,5 +1,4 @@
 import { ISystem, IEngine, Entity } from "adane-ecs"
-import { PlayerComponent } from "../Components/player-component";
 import { ChangePositionComponent } from "../Components/change-position-component";
 import { MapElementComponent } from "../Components/map-element-component";
 import { AbsolutePositionComponent } from "../Components/absolute-position-component";
@@ -9,21 +8,26 @@ import { MapPositionComponent } from "../Components/map-position-component";
 export class ChangePositionSystem implements ISystem{
 
     update(engine: IEngine): void {
-        let player = engine.entities.findOne(PlayerComponent, ChangePositionComponent);
-        let positionChange = player.get(ChangePositionComponent);
+        let entities = engine.entities.findMany(ChangePositionComponent);
+        for(let i = 0; i< entities.length; i++){
+            this.tryMove(engine, entities[i])
+        }
+    }
+
+    private tryMove(engine: IEngine, entity: Entity): void {
+        let positionChange = entity.get(ChangePositionComponent);
         if (positionChange.to && !positionChange.complete){
-            let playerPos = player.get(MapPositionComponent).mapElementNumber;
+            let playerPos = entity.get(MapPositionComponent).mapElementNumber;
             let fromEntity = engine.entities.findMany(MapElementComponent).filter(e => e.get(MapElementComponent).num == playerPos)[0];
             let targetEntity = engine.entities.findMany(MapElementComponent).filter(e => e.get(MapElementComponent).num == positionChange.to)[0];
-            if (this.move(player, fromEntity,  targetEntity)){
+            if (this.move(entity, fromEntity,  targetEntity)){
                 positionChange.complete = true;
             };
         }
-        
     }
 
-    private move(player: Entity, from: Entity,  to: Entity): boolean{
-        let playerPos = player.get(AbsolutePositionComponent);
+    private move(entity: Entity, from: Entity,  to: Entity): boolean{
+        let pos = entity.get(AbsolutePositionComponent);
         let fromPos = from.get(AbsolutePositionComponent);
         let targetPos = to.get(AbsolutePositionComponent);
 
@@ -33,18 +37,18 @@ export class ChangePositionSystem implements ISystem{
         let stepX = vectorX * 0.1;
         let stepY = vectorY * 0.1;
 
-        let targetPlayerPosX = targetPos.x + 15;
-        let targetPlayerPosY = targetPos.y - 12;
+        let targetPosX = targetPos.x + 15;
+        let targetPosY = targetPos.y - 12;
 
-        let nextPosX = playerPos.x + stepX;
-        let nextPosY = playerPos.y + stepY;
+        let nextPosX = pos.x + stepX;
+        let nextPosY = pos.y + stepY;
 
-        playerPos.x = Math.abs(stepX) < Math.abs(nextPosX - targetPlayerPosX) ?  nextPosX : targetPlayerPosX;
-        playerPos.y = Math.abs(stepY) < Math.abs(nextPosY - targetPlayerPosY) ?  nextPosY : targetPlayerPosY;
+        pos.x = Math.abs(stepX) < Math.abs(nextPosX - targetPosX) ?  nextPosX : targetPosX;
+        pos.y = Math.abs(stepY) < Math.abs(nextPosY - targetPosY) ?  nextPosY : targetPosY;
         
-        this.changeCoord(player, playerPos.x, playerPos.y);
+        this.changeCoord(entity, pos.x, pos.y);
 
-        return playerPos.x == targetPlayerPosX && playerPos.y == targetPlayerPosY;
+        return pos.x == targetPosX && pos.y == targetPosY;
     }
 
     private changeCoord(player: Entity, xPos: number, yPos: number){
