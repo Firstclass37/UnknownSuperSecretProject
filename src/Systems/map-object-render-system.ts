@@ -4,6 +4,7 @@ import { AbsolutePositionComponent } from "../Components/absolute-position-compo
 import { MapObjectRenderQueueComponent } from "../Components/map-object-render-queue-component";
 import { Guid } from "adane-system";
 import { MapElementExtentions } from "../Helpers/map-element-extentions";
+import { RenderableExtentions } from "../Helpers/renderable-extentions";
 
 export class MapObjectRenderSystem implements ISystem{
 
@@ -29,11 +30,7 @@ export class MapObjectRenderSystem implements ISystem{
         let x = absoluteMapPosition.x + queueInfo.offsetX;
         let y = absoluteMapPosition.y + queueInfo.offsetY;
         
-        entity.add(this.createRenderable(queueInfo.asset, Guid.newGuid(), x, y));
+        entity.add(RenderableExtentions.createRenderable(queueInfo.asset, Guid.newGuid(), x, y));
         entity.add(new AbsolutePositionComponent(x, y));
-    }
-
-    private createRenderable(asset: string, name: string, xPos: number, yPos: number): RenderableComponent{
-        return new RenderableComponent(Renderable.define((factory) => factory.sprite( { name: name, texture: asset, position: {x: xPos, y: yPos}} )));
     }
 }
