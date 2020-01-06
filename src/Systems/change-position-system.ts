@@ -34,8 +34,8 @@ export class ChangePositionSystem implements ISystem{
         let vectorX = targetPos.x - fromPos.x;
         let vectorY = targetPos.y - fromPos.y;
 
-        let stepX = vectorX * 0.1;
-        let stepY = vectorY * 0.1;
+        let stepX = vectorX * 0.05;
+        let stepY = vectorY * 0.05;
 
         let targetPosX = targetPos.x + 15;
         let targetPosY = targetPos.y - 12;
