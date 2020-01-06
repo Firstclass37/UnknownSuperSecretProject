@@ -13,6 +13,7 @@ import { KeyComponent } from "../Components/key-component";
 import { DoorComponent } from "../Components/door-component";
 import { MapObjectRenderQueueComponent } from "../Components/map-object-render-queue-component";
 import { AssetsConsts } from "../assets-consts";
+import { EnemyComponent } from "../Components/enemy-component";
 
 
 export class MapBuildSystem implements ISystem {
@@ -113,7 +114,8 @@ export class MapBuildSystem implements ISystem {
             Guid.newGuid(),
             new MapObjectRenderQueueComponent(position, AssetsConsts.enemy, 1, 15, -12),
             new ChangePositionComponent(),
-            new MapPositionComponent(position)
+            new MapPositionComponent(position),
+            new EnemyComponent())
         );
     }
 }
