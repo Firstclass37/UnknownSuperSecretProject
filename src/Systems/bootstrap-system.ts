@@ -28,6 +28,10 @@ import { KeyTakeSystem } from "./key-take-system";
 import { ChangeSpriteSystem } from "./change-sprite-system";
 import { OpenDoorSystem } from "./open-door-system";
 import { MapObjectRenderSystem } from "./map-object-render-system";
+import { GameStartSystem } from "./game-start-system";
+import { TemporarySystem } from "./temporary-system";
+import { GameStateComponent } from "../Components/game-state-system";
+import { RenderTaskSystem } from "./render-task-system";
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
 
@@ -47,6 +51,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         let cameraWidthPercent = 1;
         let cameraHeightPercent = 0.6;
 
+        engine.entities.add(new Entity(Guid.newGuid(), new GameStateComponent()));
         engine.entities.add(new Entity(Guid.newGuid(), new SettingsComponent(settings, this.getMapSetting(assets))));
         engine.entities.add(new Entity(Guid.newGuid(), new TestComponent(Key.RIGHT) ,new InputComponent(new KeyboardInputTrigger(Key.RIGHT, null, null))));
         engine.entities.add(new Entity(Guid.newGuid(), new TestComponent(Key.LEFT) ,new InputComponent(new KeyboardInputTrigger(Key.LEFT, null, null))));
@@ -54,10 +59,12 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.entities.add(new Entity(Guid.newGuid(), new TestComponent(Key.UP) ,new InputComponent(new KeyboardInputTrigger(Key.UP, null, null))));
         engine.entities.add(new Entity(Guid.newGuid(), new CameraComponent(settings.size.windowWidth * cameraWidthPercent, settings.size.windowHieght * cameraHeightPercent, 0, settings.size.windowHieght - settings.size.windowHieght * cameraHeightPercent), new CameraMoveComponent(true, 0, 0, 5)));
 
+
         engine.addSystem(new InputTestSystem());
         engine.addSystem(new MapBuildSystem());
         engine.addSystem(new MapRenderSystem());
         engine.addSystem(new MapObjectRenderSystem());
+        //engine.addSystem(new RenderTaskSystem());
         engine.addSystem(new ChangeSpriteSystem());
         engine.addSystem(new ChangePositionSystem());
         engine.addSystem(new OneLifeMapElementSystem());
@@ -70,6 +77,8 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new CameraFollowSystem());
         engine.addSystem(new CameraScrollSystem());
         engine.addSystem(new ChangeCoordinatesSystem());
+        //engine.addSystem(new GameStartSystem());
+        //engine.addSystem(new TemporarySystem());
     }
 
     private getGameSetting(assets: Asset[]): GameSettings{

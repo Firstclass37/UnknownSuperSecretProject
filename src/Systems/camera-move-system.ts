@@ -5,6 +5,7 @@ import { MapElementComponent } from "../Components/map-element-component";
 import { RenderableComponent, SpriteObject } from "adane-ecs-graphics"
 import { AbsolutePositionComponent } from "../Components/absolute-position-component";
 import { CameraMoveComponent } from "../Components/camera-move-component";
+import { MapPositionComponent } from "../Components/map-position-component";
 
 export class CameraMoveSystem implements ISystem{
 
