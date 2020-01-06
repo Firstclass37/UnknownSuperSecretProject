@@ -49,6 +49,9 @@ export class MapBuildSystem implements ISystem {
                     engine.entities.add(this.createStone(num));
                     blocked = true;
                 }
+                else if (mapSettings.enemies.indexOf(num) !== -1){
+                    engine.entities.add(this.createEnemy(num));
+                }
                 engine.entities.add(this.createMapElement(num, blocked));
         }
 
@@ -103,5 +106,14 @@ export class MapBuildSystem implements ISystem {
         return new Entity(
             Guid.newGuid(),  
             new MapObjectRenderQueueComponent(position, AssetsConsts.stoneSprite, 1, 0, -20));
+    }
+
+    private createEnemy(position: number): Entity{
+        return new Entity(
+            Guid.newGuid(),
+            new MapObjectRenderQueueComponent(position, AssetsConsts.enemy, 1, 15, -12),
+            new ChangePositionComponent(),
+            new MapPositionComponent(position)
+        );
     }
 }

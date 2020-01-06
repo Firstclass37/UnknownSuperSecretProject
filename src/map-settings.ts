@@ -8,4 +8,5 @@ export class MapSetting{
     exit: number;
     trees: number[];
     stones: number[];
+    enemies: number[];
 }
