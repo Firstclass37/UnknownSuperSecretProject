@@ -1,21 +1,33 @@
-import { ISystem, IEngine } from "adane-ecs";
-import { GameStateComponent } from "../Components/game-state-system";
+import { ISystem, IEngine, Entity } from "adane-ecs";
 import { PlayerComponent } from "../Components/player-component";
+import { GameEndComponent } from "../Components/game-end-component";
+import { Guid } from "adane-system";
+import { DoorComponent } from "../Components/door-component";
+import { MapPositionComponent } from "../Components/map-position-component";
 
 export class GameEndSystem implements ISystem{
     update(engine: IEngine): void {
-        let gameState = engine.entities.findOne(GameStateComponent).get(GameStateComponent);
-        if (gameState.ended){
+        let endGameComp = engine.entities.findOne(GameEndComponent);
+        if (endGameComp){
             return;
         }
-        if (this.wasGameEnded(engine)){
-            gameState.ended = true;
+
+        if (this.levelFailed(engine)){
+            engine.entities.add(new Entity(Guid.newGuid(), new GameEndComponent('Player was killed :(', false)));
+        }
+        else if (this.levelCompled(engine)){
+            engine.entities.add(new Entity(Guid.newGuid(), new GameEndComponent('Level completed!!!', true)));
         }
         
     }
 
-    private wasGameEnded(engine: IEngine): boolean{
+    private levelFailed(engine: IEngine): boolean{
         return engine.entities.findOne(PlayerComponent).get(PlayerComponent).alive === false;
     }
 
+    private levelCompled(engine: IEngine): boolean{
+        let door = engine.entities.findOne(DoorComponent);
+        let playerPos = engine.entities.findOne(PlayerComponent).get(MapPositionComponent).mapElementNumber
+        return door.get(DoorComponent).opened && door.get(MapPositionComponent).mapElementNumber === playerPos;
+    }
 }

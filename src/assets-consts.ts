@@ -14,7 +14,8 @@ export class AssetsConsts{
     static doorOpened: string = "./assets/door-open.png";
     static treeSprite: string = "./assets/tree.png";
     static stoneSprite: string = "./assets/stone.png";
-    static unknown_1: string = "./assets/unknown_1.png";
+    static greeanScreen: string = "./assets/green_screen.png";
+    static redScreen: string = "./assets/red_screen.png";
     static enemy: string = "./assets/enemy.png";
     
     static gameSettings: string = "./assets/game-settings.json";
