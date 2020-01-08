@@ -18,7 +18,7 @@ export class MapExtentions{
         return new IndexedMap(map, mapWidth);
     }
 
-    private static isBlocked(mapElement: Entity): boolean{
+    public static isBlocked(mapElement: Entity): boolean{
         return mapElement.get(DestructionComponent).needDestruct || mapElement.get(MapElementComponent).blocked;
     }
 }
