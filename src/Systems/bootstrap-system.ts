@@ -102,6 +102,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
             AssetsConsts.mapElementSprite2,
             AssetsConsts.mapElementSelectedSprite,
             AssetsConsts.mapElementDestructed,
+            AssetsConsts.mapElementEnemyVision,
             AssetsConsts.key,
             AssetsConsts.doorClosed,
             AssetsConsts.doorOpened,
