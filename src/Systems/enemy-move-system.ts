@@ -3,8 +3,9 @@ import { EnemyComponent } from "../Components/enemy-component";
 import { EnemyTrajectoryComponent } from "../Components/enemy-trajectory-component";
 import { ChangePositionComponent } from "../Components/change-position-component";
 import { MapPositionComponent } from "../Components/map-position-component";
-import { SettingsComponent } from "../Components/settings-componen";
 import { RenderableComponent } from "adane-ecs-graphics";
+import { MapElementExtentions } from "../Helpers/map-element-extentions";
+import { MapExtentions } from "../Helpers/map-extentions";
 
 export class EnemyMoveSystem implements ISystem{
     update(engine: IEngine): void {
@@ -15,18 +16,19 @@ export class EnemyMoveSystem implements ISystem{
             }
 
             this.initTraectory(engine, enemies[i]);
-            this.move(engine, enemies[i]);
+            this.move(enemies[i]);
         }
     }
 
-    private move(engine: IEngine, enemy: Entity): void{
+    private move(enemy: Entity): void{
         let changeCoord = enemy.get(ChangePositionComponent);
         let currPos = enemy.get(MapPositionComponent);
         if (changeCoord.complete){
-            let next = this.chooseNext(enemy, changeCoord);
             if (changeCoord.to){
                 currPos.mapElementNumber = changeCoord.to;
             }
+
+            let next = this.chooseNext(enemy, currPos.mapElementNumber);
 
             changeCoord.complete = false;
             changeCoord.from = currPos.mapElementNumber;
@@ -35,31 +37,41 @@ export class EnemyMoveSystem implements ISystem{
         }
     }
 
-    private chooseNext(enemy: Entity, changePos: ChangePositionComponent): number{
-        let trajectory = enemy.get(EnemyTrajectoryComponent).path;
-        if (!changePos.to){
-            return trajectory[trajectory.indexOf(changePos.from) + 1];
+    private chooseNext(enemy: Entity, position: number): number{
+        let trajectory = enemy.get(EnemyTrajectoryComponent);
+        if (trajectory.path.length === 1){
+            return position;
         }
 
-        let indexFrom = trajectory.indexOf(changePos.from);
-        let indexTo = trajectory.indexOf(changePos.to);
-
-        let step = indexTo - indexFrom;
-        let nextPos = indexTo + step;
-        if (nextPos < 0 || nextPos > trajectory.length - 1){
-            nextPos = indexTo - step;
+        let index = trajectory.path.indexOf(position);
+        if (index == trajectory.path.length - 1){
+            trajectory.path = trajectory.path.reverse();
+            return this.chooseNext(enemy, position);
         }
-        return trajectory[nextPos];
+        return trajectory.path[index + 1];
     }
 
     private initTraectory(engine: IEngine, enemy: Entity): void{
         let trajectory = enemy.get(EnemyTrajectoryComponent);
         if (!trajectory.path){
-            let mapSettings = engine.entities.findOne(SettingsComponent).get(SettingsComponent).gameSettings.map;
             let position = enemy.get(MapPositionComponent).mapElementNumber;
 
-            trajectory.startPosition =  position;
-            trajectory.path = [ position + mapSettings.width - 1, trajectory.startPosition, position - mapSettings.width + 1 ];    
+            let k = (Math.random() * 10) % 2 == 0 ? 1 : -1;
+            let step = Math.floor(Math.random() * 10);
+
+            let targetPostion = position + k * step;
+            let targetMapElem = MapElementExtentions.find(engine, targetPostion);
+            if (!targetMapElem || MapExtentions.isBlocked(targetMapElem)){
+                this.initTraectory(engine, enemy);
+            }
+
+            let path = MapExtentions.buildPath(position, targetPostion, engine);
+            if (path.length == 0){
+                this.initTraectory(engine, enemy);
+            }
+
+            trajectory.startPosition = position;
+            trajectory.path = path;    
         }
     }
 }
