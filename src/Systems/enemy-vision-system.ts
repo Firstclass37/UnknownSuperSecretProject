@@ -36,7 +36,7 @@ export class EnemyVisionSystem implements ISystem{
         if (inPosition && !vision.vision && !inMovement){
             this.initVision(enemy.get(MapPositionComponent).mapElementNumber, vision, engine);
         }
-        else if (vision.vision){
+        else if ((!inPosition || inMovement) && vision.vision){
             this.clearVision(vision, engine);
         }
     }

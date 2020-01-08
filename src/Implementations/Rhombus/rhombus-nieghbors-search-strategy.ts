@@ -46,7 +46,7 @@ export class RhombusNieghborsSearchStrategy implements INieighborsSearchStrategy
                 nieghbors.push(index - 1);
             }
             nieghbors.push(index + this.map.width + this.map.width - 1);
-            nieghbors.push(index - this.map.width - this.map.width - 1);
+            nieghbors.push(index - this.map.width - this.map.width + 1);
         }
 
         return nieghbors
