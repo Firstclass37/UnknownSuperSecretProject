@@ -34,6 +34,7 @@ import { GameStateComponent } from "../Components/game-state-system";
 import { RenderTaskSystem } from "./render-task-system";
 import { EnemyMoveSystem } from "./enemy-move-system";
 import { EnemyVisionSystem } from "./enemy-vision-system";
+import { EnemyWaitSystem } from "./enemy-wait-system";
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
 
@@ -72,6 +73,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new OneLifeMapElementSystem());
         engine.addSystem(new MapElementDestructionSystem());
         engine.addSystem(new EnemyVisionSystem());
+        engine.addSystem(new EnemyWaitSystem());
         engine.addSystem(new EnemyMoveSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new MoveSystem());

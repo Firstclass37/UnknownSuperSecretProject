@@ -6,6 +6,7 @@ import { MapPositionComponent } from "../Components/map-position-component";
 import { RenderableComponent } from "adane-ecs-graphics";
 import { MapElementExtentions } from "../Helpers/map-element-extentions";
 import { MapExtentions } from "../Helpers/map-extentions";
+import { WaitComponent } from "../Components/wait-component";
 
 export class EnemyMoveSystem implements ISystem{
     update(engine: IEngine): void {
@@ -28,12 +29,14 @@ export class EnemyMoveSystem implements ISystem{
                 currPos.mapElementNumber = changeCoord.to;
             }
 
-            let next = this.chooseNext(enemy, currPos.mapElementNumber);
+            if (!enemy.get(WaitComponent).waiting){
+                let next = this.chooseNext(enemy, currPos.mapElementNumber);
 
-            changeCoord.complete = false;
-            changeCoord.from = currPos.mapElementNumber;
-            changeCoord.to = next;
-            changeCoord.speed = 0.03;
+                changeCoord.complete = false;
+                changeCoord.from = currPos.mapElementNumber;
+                changeCoord.to = next;
+                changeCoord.speed = 0.03;
+            }
         }
     }
 
@@ -57,7 +60,8 @@ export class EnemyMoveSystem implements ISystem{
             let position = enemy.get(MapPositionComponent).mapElementNumber;
 
             let k = (Math.random() * 10) % 2 == 0 ? 1 : -1;
-            let step = Math.floor(Math.random() * 10) + 1;
+            let step = Math.floor(Math.random() * 10);
+            step = step > 1 ? step : step + 1;
 
             let targetPostion = position + k * step;
             let targetMapElem = MapElementExtentions.find(engine, targetPostion);
