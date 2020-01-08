@@ -35,6 +35,8 @@ import { RenderTaskSystem } from "./render-task-system";
 import { EnemyMoveSystem } from "./enemy-move-system";
 import { EnemyVisionSystem } from "./enemy-vision-system";
 import { EnemyWaitSystem } from "./enemy-wait-system";
+import { DamageSystem } from "./damage-system";
+import { EnemyAttackSystem } from "./enemy-attack-system";
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
 
@@ -77,6 +79,8 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new EnemyMoveSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new MoveSystem());
+        engine.addSystem(new EnemyAttackSystem());
+        engine.addSystem(new DamageSystem());
         engine.addSystem(new KeyTakeSystem());
         engine.addSystem(new OpenDoorSystem());
         engine.addSystem(new CameraMoveSystem());
