@@ -3,5 +3,5 @@ export interface IMapElement{
 
     readonly speed: number;
 
-    readonly numb: number;
+    readonly num: number;
 }

@@ -57,7 +57,7 @@ export class EnemyMoveSystem implements ISystem{
             let position = enemy.get(MapPositionComponent).mapElementNumber;
 
             let k = (Math.random() * 10) % 2 == 0 ? 1 : -1;
-            let step = Math.floor(Math.random() * 10);
+            let step = Math.floor(Math.random() * 10) + 1;
 
             let targetPostion = position + k * step;
             let targetMapElem = MapElementExtentions.find(engine, targetPostion);

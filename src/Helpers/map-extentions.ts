@@ -13,7 +13,7 @@ export class MapExtentions{
     public static buildPath(start: number, end: number, engine: IEngine): number[] {
         let gameSettings = engine.entities.findOne(SettingsComponent).get(SettingsComponent);
 
-        let indexedMap = MapExtentions.createIndexedMap(engine, gameSettings.gameSettings.map.width);
+        let indexedMap = MapExtentions.createIndexedMap(engine);
         let settings = {
             gScoreStrategy: new HexagonGScoreStrategy(),
             fScoreStrategy: new RhombusFScoreStrategy(indexedMap),
@@ -24,7 +24,9 @@ export class MapExtentions{
         return path.map(e => indexedMap.getIndex(e));
     }
 
-    public static createIndexedMap(engine: IEngine, mapWidth: number): IndexedMap {
+    public static createIndexedMap(engine: IEngine): IndexedMap {
+        let mapWidth = engine.entities.findOne(SettingsComponent).get(SettingsComponent).gameSettings.map.width;
+
         let mapElements = engine.entities.findMany(MapElementComponent);
         let map: any = [];
         for(let i = 0; i < mapElements.length; i++){

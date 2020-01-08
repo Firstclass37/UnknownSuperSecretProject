@@ -15,6 +15,7 @@ import { MapObjectRenderQueueComponent } from "../Components/map-object-render-q
 import { AssetsConsts } from "../assets-consts";
 import { EnemyComponent } from "../Components/enemy-component";
 import { EnemyTrajectoryComponent } from "../Components/enemy-trajectory-component";
+import { EnemyVisionComponent } from "../Components/enemy-vision-component";
 
 
 export class MapBuildSystem implements ISystem {
@@ -117,6 +118,7 @@ export class MapBuildSystem implements ISystem {
             new ChangePositionComponent(),
             new MapPositionComponent(position),
             new EnemyComponent(),
+            new EnemyVisionComponent(),
             new EnemyTrajectoryComponent()
         );
     }
