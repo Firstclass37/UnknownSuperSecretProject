@@ -38,6 +38,7 @@ import { EnemyWaitSystem } from "./enemy-wait-system";
 import { DamageSystem } from "./damage-system";
 import { EnemyAttackSystem } from "./enemy-attack-system";
 import { GameEndSystem } from "./game-end-system";
+import { GameEndScreenSystem } from "./game-end-screen-system";
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
 
@@ -70,7 +71,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new MapBuildSystem());
         engine.addSystem(new MapRenderSystem());
         engine.addSystem(new MapObjectRenderSystem());
-        //engine.addSystem(new RenderTaskSystem());
+        engine.addSystem(new RenderTaskSystem());
         engine.addSystem(new ChangeSpriteSystem());
         engine.addSystem(new ChangePositionSystem());
         engine.addSystem(new OneLifeMapElementSystem());
@@ -89,8 +90,11 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new CameraScrollSystem());
         engine.addSystem(new ChangeCoordinatesSystem());
         //engine.addSystem(new GameStartSystem());
-        //engine.addSystem(new TemporarySystem());
+        
         engine.addSystem(new GameEndSystem());
+        engine.addSystem(new GameEndScreenSystem());
+
+        engine.addSystem(new TemporarySystem());
     }
 
     private getGameSetting(assets: Asset[]): GameSettings{
