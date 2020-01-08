@@ -37,6 +37,7 @@ import { EnemyVisionSystem } from "./enemy-vision-system";
 import { EnemyWaitSystem } from "./enemy-wait-system";
 import { DamageSystem } from "./damage-system";
 import { EnemyAttackSystem } from "./enemy-attack-system";
+import { GameEndSystem } from "./game-end-system";
 
 export class BootstrapSystem implements ISystem, IInitializableEvent{
 
@@ -89,6 +90,7 @@ export class BootstrapSystem implements ISystem, IInitializableEvent{
         engine.addSystem(new ChangeCoordinatesSystem());
         //engine.addSystem(new GameStartSystem());
         //engine.addSystem(new TemporarySystem());
+        engine.addSystem(new GameEndSystem());
     }
 
     private getGameSetting(assets: Asset[]): GameSettings{
