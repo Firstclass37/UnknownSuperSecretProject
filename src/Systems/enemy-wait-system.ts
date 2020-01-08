@@ -25,12 +25,10 @@ export class EnemyWaitSystem implements ISystem{
     }
 
     private canWait(enemy: Entity): boolean{
-        
         let path = enemy.get(EnemyTrajectoryComponent).path;
-        let changePos = enemy.get(ChangePositionComponent);
-        let position = changePos.to ? changePos.to : enemy.get(MapPositionComponent).mapElementNumber;
+        let position = enemy.get(MapPositionComponent).mapElementNumber;
 
-        return path && changePos.complete && (path.indexOf(position) === 0 || path.indexOf(position) === path.length - 1);
+        return path && enemy.get(ChangePositionComponent).complete && (path.indexOf(position) === 0 || path.indexOf(position) === path.length - 1);
     }
 
 }

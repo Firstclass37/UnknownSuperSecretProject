@@ -24,19 +24,13 @@ export class EnemyMoveSystem implements ISystem{
     private move(enemy: Entity): void{
         let changeCoord = enemy.get(ChangePositionComponent);
         let currPos = enemy.get(MapPositionComponent);
-        if (changeCoord.complete){
-            if (changeCoord.to){
-                currPos.mapElementNumber = changeCoord.to;
-            }
+        if (changeCoord.complete && !enemy.get(WaitComponent).waiting){
+            let next = this.chooseNext(enemy, currPos.mapElementNumber);
 
-            if (!enemy.get(WaitComponent).waiting){
-                let next = this.chooseNext(enemy, currPos.mapElementNumber);
-
-                changeCoord.complete = false;
-                changeCoord.from = currPos.mapElementNumber;
-                changeCoord.to = next;
-                changeCoord.speed = 0.03;
-            }
+            changeCoord.complete = false;
+            changeCoord.from = currPos.mapElementNumber;
+            changeCoord.to = next;
+            changeCoord.speed = 0.03;
         }
     }
 

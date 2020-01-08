@@ -18,9 +18,6 @@ export class MoveSystem implements ISystem {
         engine.entities.findOne(CameraMoveComponent).get(CameraMoveComponent).followPlayer = true;
 
         let changePos = player.get(ChangePositionComponent);
-        if (changePos.complete && changePos.to){
-            playerPos.mapElementNumber = changePos.to;
-        }
 
         if (movement.path[movement.path.length - 1] != playerPos.mapElementNumber && changePos.complete){
             changePos.from = playerPos.mapElementNumber;

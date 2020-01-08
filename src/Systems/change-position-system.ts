@@ -17,10 +17,11 @@ export class ChangePositionSystem implements ISystem{
     private tryMove(engine: IEngine, entity: Entity): void {
         let positionChange = entity.get(ChangePositionComponent);
         if (positionChange.to && !positionChange.complete){
-            let playerPos = entity.get(MapPositionComponent).mapElementNumber;
-            let fromEntity = engine.entities.findMany(MapElementComponent).filter(e => e.get(MapElementComponent).num == playerPos)[0];
+            let positionComp = entity.get(MapPositionComponent);
+            let fromEntity = engine.entities.findMany(MapElementComponent).filter(e => e.get(MapElementComponent).num == positionComp.mapElementNumber)[0];
             let targetEntity = engine.entities.findMany(MapElementComponent).filter(e => e.get(MapElementComponent).num == positionChange.to)[0];
             if (this.move(entity, fromEntity,  targetEntity, positionChange.speed)){
+                positionComp.mapElementNumber = positionChange.to;
                 positionChange.complete = true;
             };
         }
